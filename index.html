@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Byte by Byte</title>
+  <meta name="description" content="Learn computer hardware and networking through a simple story. Seventeen short chapters for complete beginners.">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Apply the saved light/dark choice and text size before the page paints, so it never flashes.
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem('bbb:v1') || '{}') || {};
+        if (s.theme) document.documentElement.setAttribute('data-theme', s.theme);
+        if (s.size) document.documentElement.setAttribute('data-size', s.size);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="#/" aria-label="Byte by Byte, home">
+        <img src="assets/icon.svg" alt="" width="28" height="28">
+        <span>Byte by Byte</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#/" data-nav="home">Home</a>
+        <a href="#/part/hardware" data-nav="hardware">Hardware</a>
+        <a href="#/part/networking" data-nav="networking">Networking</a>
+        <a href="#/words" data-nav="words">Words</a>
+      </nav>
+      <div class="tools">
+        <button class="icon-btn size-btn" id="sizeBtn" type="button"><span aria-hidden="true">A<small>A</small></span></button>
+        <button class="icon-btn" id="themeBtn" type="button"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <noscript><div class="read"><p>Byte by Byte needs JavaScript switched on to show the chapters.</p></div></noscript>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p><strong>Byte by Byte</strong> · Learn computers, hardware and networking through a story.</p>
+      <p class="muted">Your progress is saved in this browser only. Nothing is sent anywhere.</p>
+    </div>
+  </footer>
+
+  <script src="js/story-hardware.js"></script>
+  <script src="js/story-networking.js"></script>
+  <script src="js/toys.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
