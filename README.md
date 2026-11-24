@@ -2,7 +2,7 @@
 
 A simple website that teaches computers to complete beginners through one story: computer hardware, computer engineering, IT support, networking and cybersecurity.
 
-Riya finds her grandfather's old computer and fixes it, builds her own PC, follows a message across the country, builds a plant-watering machine for the science fair, fixes the school computer lab, wires the school tech fest network, and finally defends it from attackers.
+The reader is the hero ("you"). You find your grandfather's old computer and fix it, build your own PC, follow a message across the country, build a plant-watering machine for the science fair, fix the school computer lab, wire the school tech fest network, and finally defend it from attackers. Uncle Dev, your best friend Arjun and Grandpa come along.
 
 ## What's inside: 53 chapters in 6 parts
 

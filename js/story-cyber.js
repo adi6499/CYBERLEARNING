@@ -11,10 +11,10 @@ BBB.chapters.push({
   minutes: 7,
   story: [
     ['n', "Tech fest morning. The hall is full, 40 PCs are humming, and the tournament's first match has just started. Then the Wi-Fi starts to crawl. Videos freeze. The scoreboard stops updating."],
-    ['arjun', "Riya, the tournament screen is stuck. And that strange Wi-Fi name is still showing up: “TechFest_Free”."],
-    ['riya', 'Uncle Dev, someone is doing something to our network. I can feel it.'],
+    ['arjun', "The tournament screen is stuck. And that strange Wi-Fi name is still showing up: “TechFest_Free”."],
+    ['you', 'Uncle Dev, someone is doing something to our network. I can feel it.'],
     ['dev', "Then let's think like a guardian, not a panicking player. Every secure system makes three promises. Secrets stay secret. Data stays correct. And the system is there when you need it. Which promise just broke?"],
-    ['riya', "...The third one. The network is here, but nobody can use it."],
+    ['you', "...The third one. The network is here, but nobody can use it."],
     ['dev', "Availability. Now we know what we're protecting. Next we work out who might be attacking, how, and how much it matters."],
     ['arjun', "So we're detectives again?"],
     ['dev', 'Guardians, this time. Detectives find out what went wrong. Guardians stop it from happening.']
@@ -101,14 +101,15 @@ BBB.chapters.push({
   title: 'Secret writing',
   topic: 'Encryption, keys and certificates',
   minutes: 8,
+  scene: 'keys',
   story: [
-    ['n', "The Wi-Fi is limping, so the tournament PCs have been moved onto cables. In a quiet corner, Arjun hands Riya a scrap of paper. On it: <code>KHOOR ULBD</code>."],
+    ['n', "The Wi-Fi is limping, so the tournament PCs have been moved onto cables. In a quiet corner, Arjun hands you a scrap of paper. On it: <code>KHOOR IULHQG</code>."],
     ['arjun', "Bet you can't read it."],
-    ['riya', "It's gibberish."],
+    ['you', "It's gibberish."],
     ['arjun', "It's a secret code. Every letter has been moved three places along the alphabet."],
-    ['riya', "So K is really H... H, E, L, L, O. “HELLO RIYA”! That was easy once I knew the trick."],
+    ['you', "So K is really H... H, E, L, L, O. “HELLO FRIEND”! That was easy once I knew the trick."],
     ['dev', "And that's the problem with the oldest codes. Julius Caesar used that one about two thousand years ago. Today a computer can try every possible shift faster than you can blink. Real encryption is very different."],
-    ['riya', 'But our Wi-Fi uses encryption. So does every website with a padlock. Why is that not easy to break?'],
+    ['you', 'But our Wi-Fi uses encryption. So does every website with a padlock. Why is that not easy to break?'],
     ['dev', "Because modern encryption uses keys so long that every computer on Earth working together could not try them all. Let's see how it works."]
   ],
   learn: [
@@ -203,8 +204,8 @@ BBB.chapters.push({
     ['n', 'Lunch break. The tournament game needs an update on all 40 PCs. Arjun has found a download site that is much faster than the official one.'],
     ['arjun', 'Done! Downloaded in 20 seconds. Shall I copy it to every PC?'],
     ['dev', 'Wait. The official site shows a long code next to the download, called a SHA-256 hash. Does your file have the same one?'],
-    ['n', 'Riya runs one command on the file and compares the two codes. Then she compares them again.'],
-    ['riya', "They're completely different. Not even close."],
+    ['n', 'You run one command on the file and compare the two codes. Then you compare them again.'],
+    ['you', "They're completely different. Not even close."],
     ['dev', "Then it isn't the same file. Someone changed it, perhaps to hide something inside. A hash is a fingerprint for data. Change even one tiny bit, and the fingerprint changes completely."],
     ['arjun', '...And I nearly installed it on 40 computers.'],
     ['dev', "Delete it, and get the official one. From now on, you'll check every time."]
@@ -284,12 +285,12 @@ BBB.chapters.push({
   topic: 'Passwords, MFA and passkeys',
   minutes: 8,
   story: [
-    ['n', "In the afternoon, Meera from Riya's class runs up, nearly in tears. Her game account has been taken over, and someone is sending rude messages to her friends from it."],
-    ['riya', 'Did you share your password with anyone?'],
+    ['n', "In the afternoon, Meera from your class runs up, nearly in tears. Her game account has been taken over, and someone is sending rude messages to her friends from it."],
+    ['you', 'Did you share your password with anyone?'],
     ['n', '“No!” says Meera. “But... I use the same password everywhere. Even on that old gaming forum.”'],
     ['dev', "That forum was hacked last year, and its passwords leaked. Attackers take leaked lists of emails and passwords and try them on every other website. It's called credential stuffing. Nobody guessed Meera's password. They already had it."],
     ['arjun', 'So one leak opened every door she had.'],
-    ['riya', 'Because every door had the same key.'],
+    ['you', 'Because every door had the same key.'],
     ['dev', "Let's get her account back, change her passwords, and add a second lock. Then let's learn to make passwords that actually hold."]
   ],
   learn: [
@@ -357,7 +358,7 @@ BBB.chapters.push({
   ],
   quiz: [
     { q: "Meera's account was taken over because...", a: ['Her password was too long', 'She reused a password that had leaked from another site', 'She used a password manager', 'Her phone was new'], c: 1, why: 'Credential stuffing: attackers tried her leaked password on other sites, and it worked.' },
-    { q: 'Which password is strongest?', a: ['P@ss1!', 'Riya2012', 'river candle orbit pepper (used only on this site)', 'password123'], c: 2, why: 'Long, random and unique beats short and complicated.' },
+    { q: 'Which password is strongest?', a: ['P@ss1!', 'Arjun2012', 'river candle orbit pepper (used only on this site)', 'password123'], c: 2, why: 'Long, random and unique beats short and complicated.' },
     { q: "Your phone shows a login approval request, but you aren't logging in. What should you do?", a: ['Tap Approve so it stops', 'Ignore it forever', 'Turn your phone off for a day', 'Deny it, then change your password'], c: 3, why: 'Someone has your password and is hoping you will approve by mistake.' },
     { q: 'Why is a password plus a fingerprint called MFA?', a: ['They are two different kinds of proof', 'Fingerprints are longer than passwords', 'Passwords are always weak', 'It uses the internet'], c: 0, why: 'Something you know plus something you are: two different factors.' }
   ]
@@ -370,12 +371,12 @@ BBB.chapters.push({
   minutes: 7,
   story: [
     ['n', 'Just before the semi-final, the scoreboard PC starts acting strangely. Its fan roars, pop-up ads appear, and the antivirus icon has vanished from the taskbar.'],
-    ['riya', 'Who used this PC?'],
+    ['you', 'Who used this PC?'],
     ['arjun', "Some boys from the other team were on it during lunch. One of them said he was installing “free game cheats”..."],
     ['dev', "Free cheats are one of the oldest tricks there is. The cheat seems to work, while something else installs quietly in the background. Pull the network cable out. Now."],
-    ['n', 'Riya unplugs the cable. The fan keeps roaring.'],
+    ['n', 'You unplug the cable. The fan keeps roaring.'],
     ['dev', "Good. Now it can't spread to the other 39 PCs, or send anything out. Let's find out what kind of creature we've caught."],
-    ['riya', 'There are different kinds?'],
+    ['you', 'There are different kinds?'],
     ['dev', 'A whole zoo.']
   ],
   learn: [
@@ -476,11 +477,11 @@ BBB.chapters.push({
   minutes: 8,
   story: [
     ['n', "That evening, back home, Grandpa's phone rings. A polite voice says he is calling from Grandpa's bank."],
-    ['grandpa', "Riya, the bank says my account will be blocked today unless I update my KYC. They've sent me an OTP. They just need me to read it out."],
-    ['riya', "Grandpa, stop! Don't read it. Put the phone down."],
+    ['grandpa', "The bank says my account will be blocked today unless I update my KYC. They've sent me an OTP. They just need me to read it out."],
+    ['you', "Grandpa, stop! Don't read it. Put the phone down."],
     ['grandpa', 'But he knew my name. And the last four digits of my card!'],
-    ['riya', "Scammers can find those out. A real bank never asks for your OTP. Never. Let's hang up and call the bank ourselves."],
-    ['n', "They call the number printed on the back of Grandpa's card. The bank says nothing is wrong with his account, and nobody from the bank had called him."],
+    ['you', "Scammers can find those out. A real bank never asks for your OTP. Never. Let's hang up and call the bank ourselves."],
+    ['n', "You and Grandpa call the number printed on the back of his card. The bank says nothing is wrong with his account, and nobody from the bank had called him."],
     ['grandpa', "I would have given him everything... and he was so friendly."],
     ['dev', "That's the trick. These attacks don't break computers. They break trust. It's called social engineering, and the cure is knowing the tricks."]
   ],
@@ -570,10 +571,10 @@ BBB.chapters.push({
     ['n', 'Day two of the fest. The “TechFest_Free” Wi-Fi is still there, and a few visitors have joined it because it had no password.'],
     ['arjun', 'It has almost the same name as ours. Why would anyone make a free copy?'],
     ['dev', "Because whoever runs it sits in the middle of everything those people send. It's called an evil twin. Every page they open passes through the attacker's device first."],
-    ['riya', 'And yesterday, when our real Wi-Fi slowed down... was that the same person?'],
+    ['you', 'And yesterday, when our real Wi-Fi slowed down... was that the same person?'],
     ['dev', 'Probably. Flood the real network, and people go looking for another one. Two attacks working together.'],
-    ['n', "Riya opens a Wi-Fi analyser app on her phone. The fake network's signal is strongest near the back of the hall. Behind a stall, the teachers find a small battery-powered device hidden in a bag. They switch it off and take it straight to the principal."],
-    ['riya', 'One hidden box. How many other kinds of attack are there?'],
+    ['n', "You open a Wi-Fi analyser app on your phone. The fake network's signal is strongest near the back of the hall. Behind a stall, the teachers find a small battery-powered device hidden in a bag. They switch it off and take it straight to the principal."],
+    ['you', 'One hidden box. How many other kinds of attack are there?'],
     ['dev', 'Plenty. But every single one of them has a defence.']
   ],
   learn: [
@@ -636,12 +637,12 @@ BBB.chapters.push({
   topic: 'Firewalls, monitoring and incident response',
   minutes: 8,
   story: [
-    ['n', 'After the fest, the principal asks Uncle Dev, Riya and Arjun to make sure the school network can never be attacked like that again.'],
-    ['riya', 'So we just switch the firewall on?'],
+    ['n', 'After the fest, the principal asks Uncle Dev, Arjun and you to make sure the school network can never be attacked like that again.'],
+    ['you', 'So we just switch the firewall on?'],
     ['dev', "A firewall is one wall. We need a whole fort: walls, guards, cameras, and a plan for the day something still gets through. And a firewall needs good rules, or it's a gate left wide open."],
     ['arjun', 'How many rules?'],
     ['dev', 'Few, clear, and in the right order. And the last rule is always the same: if it is not allowed, it is blocked.'],
-    ['riya', 'Default deny.'],
+    ['you', 'Default deny.'],
     ['dev', "Exactly. Let's design the school's walls, and write the plan for when something gets in anyway."]
   ],
   learn: [
@@ -730,11 +731,11 @@ BBB.chapters.push({
   topic: 'Privacy, tracking and your rights',
   minutes: 8,
   story: [
-    ['n', 'On Sunday, Riya finally posts a photo from the fest: the whole team, holding the trophy for the best-run event. Within minutes, Arjun messages her.'],
+    ['n', 'On Sunday, you finally post a photo from the fest: the whole team, holding the trophy for the best-run event. Within minutes, Arjun messages you.'],
     ['arjun', 'Nice photo! But your school name is on your T-shirt, the photo shows your building gate, and your profile is public. Anyone could work out where you live.'],
-    ['riya', "Oh. I didn't even think of that."],
+    ['you', "Oh. I didn't even think of that."],
     ['dev', "Most people don't. Every photo, like, search and app you use leaves a trace. Together they make your digital footprint. And unlike footprints in the sand, the tide doesn't wash these away."],
-    ['riya', 'So should I just stop posting?'],
+    ['you', 'So should I just stop posting?'],
     ['dev', "No. Just decide who gets to see what. Let's go through your settings together."]
   ],
   learn: [
@@ -796,6 +797,13 @@ BBB.chapters.push({
       ['Curtains you can open or close', 'Privacy settings']
     ]
   },
+  diagram: { flow: [
+    { t: 'You post or search', s: 'a photo, a comment, a location' },
+    { t: 'It is stored', s: 'on the app\'s servers, often with extra details' },
+    { t: 'It spreads', s: 'shared, copied, screenshotted, sold to advertisers' },
+    { t: 'Hard to delete', s: 'copies live on in places you cannot reach' },
+    { t: 'It comes back', s: 'years later, to schools, employers, strangers' }
+  ], note: 'So think before you post: would you be happy for anyone to see this, forever?' },
   words: [
     ['Digital footprint', 'The trail of information you leave online, on purpose or without noticing.'],
     ['Cookie', 'A small file a website stores in your browser, for example to keep you logged in.'],
@@ -823,13 +831,13 @@ BBB.chapters.push({
   story: [
     ['n', 'A month later, the school holds its first Capture the Flag (CTF) competition. Teams solve security puzzles, like decoding messages, finding clues hidden in files and spotting weaknesses in a practice website built just for the contest, to find secret codes called “flags”.'],
     ['arjun', 'We cracked the Caesar cipher flag in two minutes! And the hash one!'],
-    ['riya', "Because we've done both for real. Look, the last puzzle is a login page with a weak password rule."],
-    ['n', 'Team Riya and Arjun finish second out of twelve teams. Back home, Riya finds Grandpa in the store room, dusting the old grey computer.'],
+    ['you', "Because we've done both for real. Look, the last puzzle is a login page with a weak password rule."],
+    ['n', 'You and Arjun finish second out of twelve teams. Back home, you find Grandpa in the store room, dusting the old grey computer.'],
     ['grandpa', 'You started all this with my old box, didn\'t you? Fixing it, building one, networks, and now hackers...'],
-    ['riya', "Grandpa, I know what I want to be. A security engineer. The good kind of hacker. The kind who gets permission."],
+    ['you', "Grandpa, I know what I want to be. A security engineer. The good kind of hacker. The kind who gets permission."],
     ['dev', 'The best kind. Attackers only need to find one way in. Guardians have to protect all of them.'],
     ['grandpa', "Then I'll be your first customer. Start by teaching me which calls to hang up on."],
-    ['n', 'Riya presses the big round button. The old grey computer whirrs to life with one short beep, just like the first day. It all began with a box that would not wake up.']
+    ['n', 'You press the big round button. The old grey computer whirrs to life with one short beep, just like the first day. It all began with a box that would not wake up.']
   ],
   learn: [
     { h: 'Three kinds of hat' },

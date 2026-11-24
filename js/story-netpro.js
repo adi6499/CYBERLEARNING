@@ -1,6 +1,6 @@
 /* Byte by Byte — story content.
    Part 5: The network engineer (advanced networking).
-   Riya and Arjun design and build the network for the school tech fest.
+   You and Arjun design and build the network for the school tech fest.
    Same format as story-hardware.js. */
 window.BBB = window.BBB || {};
 BBB.chapters = BBB.chapters || [];
@@ -11,14 +11,14 @@ BBB.chapters.push({
   topic: 'Network topologies and types',
   minutes: 6,
   story: [
-    ['n', "Diwali holidays. Arjun is back in Pune for two whole weeks, and the first thing he sees at Riya's school is a poster: <b>TECH FEST: LAN gaming tournament on 40 PCs. Volunteers wanted for the network team.</b>"],
+    ['n', "Diwali holidays. Arjun is back in Pune for two whole weeks, and the first thing he sees at your school is a poster: <b>TECH FEST: LAN gaming tournament on 40 PCs. Volunteers wanted for the network team.</b>"],
     ['arjun', 'Forty PCs in one hall, all playing together? We have to do this.'],
-    ['riya', "We've only ever set up one home router. This is a whole school hall, plus Wi-Fi for every visitor, plus a live stream."],
+    ['you', "We've only ever set up one home router. This is a whole school hall, plus Wi-Fi for every visitor, plus a live stream."],
     ['dev', 'Then start where every network engineer starts: with a drawing. Before you buy a single cable, decide the shape of the network. Engineers call it the <b>topology</b>.'],
     ['n', 'Uncle Dev draws on the whiteboard: dots in a line, dots in a circle, dots joined to one middle dot, and dots all joined to each other.'],
     ['arjun', 'The one with the dot in the middle looks like a star.'],
     ['dev', "That's exactly what it's called. For your tournament we'll use a star made of stars: one main switch in the middle, a smaller switch on each row of tables, and every PC joined to its row switch."],
-    ['riya', 'So if one cable breaks, only one PC stops, not the whole hall.'],
+    ['you', 'So if one cable breaks, only one PC stops, not the whole hall.'],
     ['dev', 'And that is why almost every network today is a star.']
   ],
   learn: [
@@ -97,7 +97,7 @@ BBB.chapters.push({
     ['n', 'Five minutes later he plugs his cable into the tester. Lights 1 and 2 blink. Then 3 and 6 blink in the wrong places. Light 7 never comes on at all.'],
     ['arjun', "It's broken. I made a broken cable."],
     ['dev', 'You made a cable with the wires in the wrong order. Inside are eight little wires, twisted into four pairs, each with its own colour. Both ends must follow the same colour order, or the signals land on the wrong pins.'],
-    ['riya', "Why are they twisted? Wouldn't straight wires be simpler?"],
+    ['you', "Why are they twisted? Wouldn't straight wires be simpler?"],
     ['dev', 'The twists are the clever part. Twisting each pair cancels out electrical noise, both from the other pairs and from things like motors and power cables. Untwist too much and the cable gets noisy.'],
     ['n', 'By evening Arjun has made twelve perfect cables. All eight lights blink in order, every time.']
   ],
@@ -208,9 +208,9 @@ BBB.chapters.push({
   story: [
     ['dev', "Question. Should a visitor's phone on the free Wi-Fi be able to reach the PC that runs the tournament?"],
     ['arjun', 'No way! Someone could mess with the scores.'],
-    ['riya', 'So we need separate networks. But we only have one router and one set of addresses.'],
+    ['you', 'So we need separate networks. But we only have one router and one set of addresses.'],
     ['dev', 'Then we cut the addresses like a cake. Each slice becomes its own small network, called a <b>subnet</b>. The players get one slice, the organisers another, and the visitors a big one.'],
-    ['riya', 'How does a computer know which slice it belongs to?'],
+    ['you', 'How does a computer know which slice it belongs to?'],
     ['dev', "From its subnet mask. Remember the line in ipconfig, <code>Subnet Mask 255.255.255.0</code>? That's the knife. It says which part of the address is the network's name and which part is the house number."],
     ['n', 'Arjun opens a notebook and writes the plan: players, 40 PCs. Organisers, 10 laptops. Visitors, maybe 500 phones.'],
     ['dev', "Good. Now let's work out how big each slice has to be."]
@@ -310,8 +310,8 @@ BBB.chapters.push({
   minutes: 6,
   story: [
     ['n', "Arjun is checking the Wi-Fi details on his phone, and frowns."],
-    ['arjun', 'Riya, my phone has two IP addresses. One is normal. The other is a monster, with letters, numbers and colons everywhere.'],
-    ['riya', "That's IPv6! Uncle Dev said the world ran out of IPv4 addresses."],
+    ['arjun', 'My phone has two IP addresses. One is normal. The other is a monster, with letters, numbers and colons everywhere.'],
+    ['you', "That's IPv6! Uncle Dev said the world ran out of IPv4 addresses."],
     ['dev', 'It did. So the internet is slowly moving to IPv6. Many big mobile networks in India already give phones an IPv6 address, and your phone uses both kinds at once.'],
     ['arjun', 'But how is anyone supposed to remember that?'],
     ['dev', "Nobody does! That's what DNS is for. But an engineer has to read one, shorten one, and know what kind of address it is. And you already know the secret: it's just hexadecimal."]
@@ -409,9 +409,9 @@ BBB.chapters.push({
     ['arjun', 'How does the switch know which cable leads to which PC? We never told it anything.'],
     ['dev', 'It learns, all by itself. Every time a message comes in on a port, the switch notes down who sent it and which port it came from. Within seconds it has a full map.'],
     ['n', 'Just then a helper finds a spare cable and, trying to be useful, plugs both ends into the same switch. Every light on the switch starts flashing like a string of Diwali lights. The test game freezes on every screen.'],
-    ['riya', 'What happened?! Everything stopped!'],
+    ['you', 'What happened?! Everything stopped!'],
     ['dev', "A loop. Messages are running round and round that cable forever, multiplying every time. It's called a broadcast storm. Pull that cable out!"],
-    ['n', 'Riya yanks it out. The lights calm down. The game wakes up.'],
+    ['n', 'You yank it out. The lights calm down. The game wakes up.'],
     ['dev', "Better switches have a protection called Spanning Tree that stops loops by itself. This cheap one doesn't. Today you learn exactly how switches think, so you'll spot it next time."]
   ],
   learn: [
@@ -497,11 +497,11 @@ BBB.chapters.push({
   topic: 'Routing, NAT and port forwarding',
   minutes: 8,
   story: [
-    ['riya', "We have three subnets now: players, organisers and visitors. But the players' PCs still need to reach the game server in the organisers' subnet. And the live stream has to get out to the internet."],
+    ['you', "We have three subnets now: players, organisers and visitors. But the players' PCs still need to reach the game server in the organisers' subnet. And the live stream has to get out to the internet."],
     ['dev', 'So you need a router to join them, with rules about who may go where. Every router carries a map called a routing table. For every single packet, it checks the map and picks the next step.'],
     ['arjun', "And parents at home want to watch the scoreboard live. Can't we just open a door in the router so the internet can reach our score PC?"],
     ['dev', "That door is called port forwarding. It works, but it means anyone on the whole internet can knock on that PC. One weak password or one missed update, and you've invited trouble in."],
-    ['riya', 'So what do we do?'],
+    ['you', 'So what do we do?'],
     ['dev', "We put the public scoreboard on a proper website instead, and keep the score PC inside, hidden. For organisers who need to reach it from home, I'll show you a much safer tunnel soon."]
   ],
   learn: [
@@ -589,10 +589,10 @@ BBB.chapters.push({
   story: [
     ['n', 'Test day. Forty PCs switch on together. Twenty of them join the network. The other twenty show a little yellow warning triangle: no internet.'],
     ['arjun', "Half of them work and half don't? They're exactly the same PCs!"],
-    ['riya', "I know this one. Detective steps. <code>ipconfig</code>... 169.254. They didn't get an address. So it's DHCP."],
-    ['n', "They open the router's DHCP page. The address pool for the players' subnet: 10.10.1.10 to 10.10.1.29. Exactly twenty addresses."],
+    ['you', "I know this one. Detective steps. <code>ipconfig</code>... 169.254. They didn't get an address. So it's DHCP."],
+    ['n', "You and Arjun open the router's DHCP page. The address pool for the players' subnet: 10.10.1.10 to 10.10.1.29. Exactly twenty addresses."],
     ['dev', 'The twenty-first PC asked for an address, and the router had none left to give. Make the pool bigger.'],
-    ['n', 'Riya changes it to 10.10.1.10 to 10.10.1.60. One by one, the warning triangles disappear.'],
+    ['n', 'You change it to 10.10.1.10 to 10.10.1.60. One by one, the warning triangles disappear.'],
     ['dev', "DHCP is one of many quiet helpers running in the background of every network. Nobody notices them, until one stops working. Let's meet them all."]
   ],
   learn: [
@@ -699,9 +699,9 @@ BBB.chapters.push({
     ['n', 'The cables are done. Now the hard part: Wi-Fi for every visitor, in a hall full of concrete pillars, steel shutters and hundreds of phones.'],
     ['arjun', 'Easy. Put one really powerful router in the middle and turn it up to maximum.'],
     ['dev', "That's the most common mistake of all. One box can only talk to so many phones at a time, however loudly it shouts. And the phones have to shout back, with their tiny, weak radios."],
-    ['riya', 'So we need several access points, each looking after one part of the hall?'],
+    ['you', 'So we need several access points, each looking after one part of the hall?'],
     ['dev', "Exactly. Several access points, all cabled to the switches, all with the same network name, on different channels so they don't talk over each other. Phones move between them as people walk around."],
-    ['n', 'Riya walks the hall with a Wi-Fi analyser app, noting the signal strength every few metres. Arjun marks the numbers on a map. By evening, four small access points are mounted high on the walls, and the weak corners are gone.']
+    ['n', 'You walk the hall with a Wi-Fi analyser app, noting the signal strength every few metres. Arjun marks the numbers on a map. By evening, four small access points are mounted high on the walls, and the weak corners are gone.']
   ],
   learn: [
     { h: 'The basics' },
@@ -771,6 +771,13 @@ BBB.chapters.push({
       ['Every staff member with their own ID card', 'WPA-Enterprise (802.1X)']
     ]
   },
+  diagram: { flow: [
+    { t: 'See the network', s: 'the phone hears the SSID (the Wi-Fi name)' },
+    { t: 'Join', s: 'you pick it and type the password' },
+    { t: 'Prove it', s: 'WPA2 or WPA3 checks the password and sets up encryption' },
+    { t: 'Get an address', s: 'DHCP hands out an IP address' },
+    { t: 'Online', s: 'traffic flows, scrambled over the air' }
+  ] },
   words: [
     ['SSID', 'The name of a Wi-Fi network.'],
     ['Channel', 'A slice of the radio band that a Wi-Fi network uses.'],
@@ -799,7 +806,7 @@ BBB.chapters.push({
     ['n', 'Two days before the fest, the teacher in charge has a request. The organisers want to update the tournament schedule on the score server from home, in the evenings.'],
     ['arjun', 'We said port forwarding is dangerous. So how can they reach a PC inside the school from their homes?'],
     ['dev', "With a tunnel. A VPN builds an encrypted tunnel across the internet, from the organiser's laptop straight into the school network. Anyone watching sees only scrambled data going into a tunnel."],
-    ['riya', 'And without the tunnel, the score server stays invisible from outside?'],
+    ['you', 'And without the tunnel, the score server stays invisible from outside?'],
     ['dev', 'Exactly. Only people with a VPN login can get in, and once inside, they can reach only what we allow.'],
     ['arjun', "My cousin uses a VPN app to hide from hackers. So he's totally safe now, right?"],
     ['dev', "Not quite. A VPN protects the journey. It doesn't stop him clicking a scam link or installing a bad app. Let's be clear about what a VPN does, and what it doesn't."]
@@ -883,14 +890,14 @@ BBB.chapters.push({
   topic: 'Network tools and monitoring',
   minutes: 8,
   story: [
-    ['n', 'Fest day. The hall roars. Forty players, a giant screen, and a live stream for parents at home. On the stage, Riya watches a laptop full of graphs: every switch, every access point, all green.'],
+    ['n', 'Fest day. The hall roars. Forty players, a giant screen, and a live stream for parents at home. On the stage, you watch a laptop full of graphs: every switch, every access point, all green.'],
     ['n', 'From his PC in row 3, Arjun shouts across the hall.'],
     ['arjun', 'Semi-final! If the network lags now, I will never forgive you!'],
     ['n', "It doesn't lag once. Arjun's team wins by two points, and the hall erupts."],
     ['dev', 'Proud of you both. But an engineer never just hopes. Keep watching. Open Wireshark on the visitor network and look at what "normal" looks like.'],
-    ['riya', 'Web pages, DNS lookups, video... all normal. But Uncle Dev, look. This one phone is sending thousands of strange requests a minute. And look at the Wi-Fi list: there\'s a network called <b>TechFest_Free_WiFi</b>.'],
+    ['you', 'Web pages, DNS lookups, video... all normal. But Uncle Dev, look. This one phone is sending thousands of strange requests a minute. And look at the Wi-Fi list: there\'s a network called <b>TechFest_Free_WiFi</b>.'],
     ['dev', "That isn't one of ours."],
-    ['n', 'Riya and Arjun look at each other. Somebody at the fest is up to something.']
+    ['n', 'You and Arjun look at each other. Somebody at the fest is up to something.']
   ],
   learn: [
     { h: 'Commands you know, and a few more' },

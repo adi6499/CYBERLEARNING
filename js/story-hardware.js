@@ -2,16 +2,17 @@
    Part 1: Inside the box (hardware).
    Every chapter is plain data so it is easy to edit without touching the app code.
 
-   Story lines:  ['n', 'text']  = narrator,  ['riya'|'dev'|'arjun', 'text'] = a character speaking.
+   Story lines:  ['n', 'text']  = narrator,  ['you'|'dev'|'arjun'|'grandpa', 'text'] = someone speaking.
+   The hero is the reader ("you"), so there is no named main character.
    Learn blocks: {h:'heading'} {p:'paragraph'} {ul:[...]} {ol:[...]} {table:{head:[...], rows:[[...]]}} {tip:'...'} {warn:'...'}
    Diagram:      {flow:[{t,s}], loop:true?, note?}  or  {stack:[{t,s}]}
 */
 window.BBB = window.BBB || {};
 
 BBB.characters = {
-  riya:  { name: 'Riya',      initial: 'R', role: '14, curious, and about to become the family computer doctor.' },
-  dev:   { name: 'Uncle Dev', initial: 'D', role: 'Hardware and network engineer. Explains everything with everyday things.' },
-  arjun: { name: 'Arjun',     initial: 'A', role: "Riya's best friend. Just moved to Bengaluru, 800 km away." },
+  you:   { name: 'You',       initial: 'You', role: 'The hero of this story. You start knowing nothing about computers, and end up fixing, building and defending them.' },
+  dev:   { name: 'Uncle Dev', initial: 'D', role: 'Your uncle. A hardware and network engineer who explains everything with everyday things.' },
+  arjun: { name: 'Arjun',     initial: 'A', role: 'Your best friend. Moved to Bengaluru, 800 km away, but comes back to Pune in the holidays.' },
   grandpa: { name: 'Grandpa', initial: 'G', role: "Owner of the old grey computer. Brand new to smartphones, and a little too trusting of phone calls." }
 };
 
@@ -25,7 +26,7 @@ BBB.tracks = {
     label: 'Hardware',
     icon: 'cpu',
     mapRight: 'In a computer',
-    blurb: "Riya finds Grandpa's old computer. It won't switch on. To fix it, she has to learn what every part inside does.",
+    blurb: "You find Grandpa's old computer. It won't switch on. To fix it, you have to learn what every part inside does.",
     finish: "You now know what every part inside a computer does, how it wakes up, how to build one and how to fix one. That's the foundation of computer engineering."
   },
   networking: {
@@ -34,8 +35,8 @@ BBB.tracks = {
     label: 'Networking',
     icon: 'network',
     mapRight: 'In a network',
-    blurb: 'Riya wants to play a game with her best friend in another city. Follow her message all the way there, and back.',
-    finish: "You followed one message from Riya's room to Arjun's screen: addresses, routers, cables, packets, DNS, protocols, security and troubleshooting. That's the whole map of networking."
+    blurb: 'You want to play a game with your best friend in another city. Follow your message all the way there, and back.',
+    finish: "You followed one message from your room to Arjun's screen: addresses, routers, cables, packets, DNS, protocols, security and troubleshooting. That's the whole map of networking."
   },
   engineering: {
     title: 'How it really works',
@@ -43,7 +44,7 @@ BBB.tracks = {
     label: 'Computer engineering',
     icon: 'chip',
     mapRight: 'In a computer',
-    blurb: 'The school science fair is coming and Riya wants to build a robot. First she has to find out how a chip really thinks: from grains of sand to tiny switches to a working machine.',
+    blurb: 'The school science fair is coming and you want to build a machine of your own. First you have to find out how a chip really thinks: from grains of sand to tiny switches to a working machine.',
     finish: 'You followed a computer all the way down: from sand and transistors, to logic gates, to adding and remembering, to the parts of a CPU, to the code that drives it, to a tiny computer you can build yourself. That is computer engineering.'
   },
   technician: {
@@ -52,7 +53,7 @@ BBB.tracks = {
     label: 'IT support',
     icon: 'wrench',
     mapRight: 'In a computer',
-    blurb: "Exams are coming and the school's computer lab is a mess: 30 slow, broken, junk-filled PCs. The lab teacher hands the job to Riya.",
+    blurb: "Exams are coming and the school's computer lab is a mess: 30 slow, broken, junk-filled PCs. The lab teacher hands the job to you.",
     finish: 'Storage, backups, everything you plug in, laptops and phones, the operating system, the command line, power and safety, virtual machines and the help desk: you now have the full toolkit of an IT support technician.'
   },
   netpro: {
@@ -61,7 +62,7 @@ BBB.tracks = {
     label: 'Advanced networking',
     icon: 'router',
     mapRight: 'In a network',
-    blurb: 'Riya and Arjun take on the school tech fest: 40 PCs, Wi-Fi for hundreds of visitors, and a gaming tournament that must not lag.',
+    blurb: 'You and Arjun take on the school tech fest: 40 PCs, Wi-Fi for hundreds of visitors, and a gaming tournament that must not lag.',
     finish: 'Topologies, cables, subnets, IPv6, switches, routing, network services, Wi-Fi design, VPNs and network tools: you can now plan, build and fix a real network.'
   },
   cyber: {
@@ -70,7 +71,7 @@ BBB.tracks = {
     label: 'Cybersecurity',
     icon: 'shield',
     mapRight: 'In cybersecurity',
-    blurb: "During the tech fest someone attacks the network, and a scammer calls Grandpa. Riya learns how attackers think, and how to stop them.",
+    blurb: "During the tech fest someone attacks the network, and a scammer calls Grandpa. You learn how attackers think, and how to stop them.",
     finish: "You know how security works from the inside: the three promises, encryption, hashing, passwords, malware, scams, attacks, defences, privacy and ethical hacking. You're ready to be one of the guardians."
   }
 };
@@ -83,13 +84,13 @@ BBB.chapters.push({
   topic: 'What is a computer?',
   minutes: 4,
   story: [
-    ['n', "It's the first week of the summer holidays in Pune. In Grandpa's store room, under a dusty cloth, Riya finds a big grey box with a keyboard and a heavy old screen."],
-    ['n', 'She plugs it in and presses the big round button. Nothing. Not a light, not a beep.'],
-    ['riya', "Uncle Dev! Grandpa's computer is dead. Can we throw it away and buy a new one?"],
+    ['n', "It's the first week of the summer holidays in Pune. In Grandpa's store room, under a dusty cloth, you find a big grey box with a keyboard and a heavy old screen."],
+    ['n', 'You plug it in and press the big round button. Nothing. Not a light, not a beep.'],
+    ['you', "Uncle Dev! Grandpa's computer is dead. Can we throw it away and buy a new one?"],
     ['dev', "Dead? Or just asleep? Before we fix anything, tell me something. What do you think a computer actually does?"],
-    ['riya', 'It... plays videos? Runs games? Helps with homework?'],
+    ['you', 'It... plays videos? Runs games? Helps with homework?'],
     ['dev', "Those are things <em>you</em> do with it. Underneath, every computer does just four jobs. It takes something in, it works on it, it gives something out, and it remembers. Your phone does that. A calculator does that. Even the little computer inside a washing machine does that."],
-    ['riya', 'Four jobs. So if Grandpa\'s box is broken, one of those four jobs is broken?'],
+    ['you', 'Four jobs. So if Grandpa\'s box is broken, one of those four jobs is broken?'],
     ['dev', "Now you're thinking like an engineer. This week we open it up and find out which one."]
   ],
   learn: [
@@ -147,17 +148,31 @@ BBB.chapters.push({
   minutes: 5,
   story: [
     ['n', 'Uncle Dev unscrews the side panel of the grey box. Inside: green boards, flat ribbon cables, a fan, and thousands of tiny black and silver parts.'],
-    ['riya', 'How does all this understand my words? It\'s just metal and wires.'],
+    ['you', 'How does all this understand my words? It\'s just metal and wires.'],
     ['dev', "Here's the secret. It doesn't understand words at all. Deep inside its chips are billions of tiny switches. Each switch is either ON or OFF. That's all it knows."],
-    ['riya', 'Then how does it show photos and play songs?'],
+    ['you', 'Then how does it show photos and play songs?'],
     ['dev', "Put enough switches in a row and you can count to any number. Give every letter a number. Every colour a number. Every tiny slice of sound a number. Suddenly ON and OFF can mean anything at all."],
-    ['riya', "So the whole computer is just... counting with light switches?"],
+    ['you', "So the whole computer is just... counting with light switches?"],
     ['dev', 'Very, very fast. Billions of times a second. Come on, let\'s count like a computer.']
   ],
+  scene: 'binary',
   learn: [
-    { p: 'Each tiny switch holds one <b>bit</b> (short for <em>binary digit</em>). A bit is either <b>0</b> (off) or <b>1</b> (on). Counting with only 0 and 1 is called <b>binary</b>.' },
+    { p: 'Inside every chip are billions of tiny switches. Each switch holds one <b>bit</b> (short for <em>binary digit</em>). A bit can only be <b>0</b> (off) or <b>1</b> (on). Counting with only 0 and 1 is called <b>binary</b>.' },
+    { h: 'More switches, more patterns' },
+    { p: 'One switch can only make 2 patterns. But every switch you add <b>doubles</b> the number of patterns:' },
+    { table: { head: ['Switches', 'Patterns they can make', 'How many'], rows: [
+      ['1', '0, 1', '2'],
+      ['2', '00, 01, 10, 11', '4'],
+      ['3', '000, 001, 010, 011, 100, 101, 110, 111', '8'],
+      ['8', '00000000 all the way up to 11111111', '256']
+    ] } },
+    { p: 'So 8 switches can stand for any number from 0 to 255.' },
     { h: 'How to read a binary number' },
-    { p: 'In binary, each place is worth double the place to its right: <b>1, 2, 4, 8, 16, 32, 64, 128</b>. To read a number, add up the places that are switched ON.' },
+    { p: 'Give every switch a value. The one on the right is worth <b>1</b>, and each one to its left is worth <b>double</b>: 1, 2, 4, 8, 16, 32, 64, 128. Then <b>add up the values of the switches that are on</b>. Ignore the ones that are off.' },
+    { table: { keep: true, head: ['Value', '128', '64', '32', '16', '8', '4', '2', '1'], rows: [
+      ['Switch', '0', '0', '0', '0', '0', '<b>1</b>', '0', '<b>1</b>']
+    ] } },
+    { p: 'Here only the switches worth 4 and 1 are on, so the number is 4 + 1 = <b>5</b>. More examples:' },
     { ul: [
       '<code>00000101</code> → the 4 and the 1 are on → 4 + 1 = <b>5</b>',
       '<code>00001010</code> → the 8 and the 2 are on → 8 + 2 = <b>10</b>',
@@ -203,13 +218,14 @@ BBB.chapters.push({
   title: 'The brain in the middle',
   topic: 'The CPU',
   minutes: 5,
+  scene: 'cpu',
   story: [
     ['n', 'In the middle of the big green board sits a metal block covered in thin fins, with a fan on top. Uncle Dev unclips it and lifts it off. Underneath is a small square chip, smeared with dry grey paste.'],
-    ['riya', "That tiny thing? That's the brain?"],
+    ['you', "That tiny thing? That's the brain?"],
     ['dev', 'The CPU: the Central Processing Unit. Every click, every key press, every dot of colour on the screen, it does the maths for all of it. Billions of tiny steps every second.'],
-    ['riya', 'Why is there a fan sitting on top of it?'],
+    ['you', 'Why is there a fan sitting on top of it?'],
     ['dev', 'Thinking that fast makes heat. A lot of heat. Without this metal heatsink and fan, it would get too hot within seconds, and it would slow itself down or switch off to protect itself.'],
-    ['riya', 'And this grey toothpaste stuff?'],
+    ['you', 'And this grey toothpaste stuff?'],
     ['dev', "Thermal paste. The chip and the heatsink look flat, but they have tiny gaps full of air, and air is bad at carrying heat. The paste fills the gaps. Grandpa's paste has dried out like old clay. Make a note: that could be one of our problems."]
   ],
   learn: [
@@ -269,14 +285,15 @@ BBB.chapters.push({
   title: 'The desk and the cupboard',
   topic: 'Memory (RAM) and storage',
   minutes: 5,
+  scene: 'memory',
   story: [
-    ['n', 'Next to the CPU, Riya spots two long, thin green sticks clipped into slots. Further down, bolted to the case, is a heavy metal box with a cable running into it.'],
+    ['n', 'Next to the CPU, you spot two long, thin green sticks clipped into slots. Further down, bolted to the case, is a heavy metal box with a cable running into it.'],
     ['dev', 'These sticks are the RAM. That heavy box is the hard disk. Both hold data, but in completely different ways.'],
-    ['riya', 'Why would a computer need two places to keep things?'],
+    ['you', 'Why would a computer need two places to keep things?'],
     ['dev', "Think about doing your homework. Your desk is where you spread out the books you're using right now. Your cupboard is where all your books live when you're not using them. RAM is the desk. The hard disk is the cupboard."],
-    ['riya', 'So a bigger desk means I can have more books open at once?'],
+    ['you', 'So a bigger desk means I can have more books open at once?'],
     ['dev', "Exactly. And if the desk is too small, you keep running back to the cupboard to swap books. That's when a computer feels slow. Now, what happens to your desk at the end of the day?"],
-    ['riya', 'Mummy makes me clear it! ...Oh. So when you switch off, the RAM gets cleared, but the hard disk keeps everything.'],
+    ['you', 'Mummy makes me clear it! ...Oh. So when you switch off, the RAM gets cleared, but the hard disk keeps everything.'],
     ['dev', "That's why you have to press Save."]
   ],
   learn: [
@@ -337,13 +354,13 @@ BBB.chapters.push({
   topic: 'Motherboard, power supply, graphics and ports',
   minutes: 6,
   story: [
-    ['n', 'Riya runs her finger along the green board. Thin copper lines run everywhere, crossing and turning, like the roads on a map.'],
+    ['n', 'You run your finger along the green board. Thin copper lines run everywhere, crossing and turning, like the roads on a map.'],
     ['dev', "That big board is the motherboard. Think of it as a city. The CPU, the RAM, the drives are the buildings. These copper lines are the roads that carry data between them."],
-    ['riya', 'Then who gives the city electricity?'],
+    ['you', 'Then who gives the city electricity?'],
     ['dev', 'The power supply. That box in the corner with its own fan. It takes electricity from the wall socket and turns it into the smaller, steady voltages the parts need.'],
-    ['riya', 'What about this flat board sticking out, with its own little fan?'],
+    ['you', 'What about this flat board sticking out, with its own little fan?'],
     ['dev', 'Graphics card. The GPU. It draws everything you see on the screen: games, videos, even the mouse pointer. Its job is to colour millions of dots, very fast.'],
-    ['riya', 'There are so many parts.'],
+    ['you', 'There are so many parts.'],
     ['dev', "Your turn. Explore the city and find every part. I'll tell you about each one."]
   ],
   learn: [
@@ -411,12 +428,12 @@ BBB.chapters.push({
   topic: 'Booting and the operating system',
   minutes: 5,
   story: [
-    ['n', 'On Saturday Uncle Dev arrives with a brand new power supply. Grandpa\'s old one smells burnt inside: that was the main problem all along. They swap it, blow out years of dust, and put fresh thermal paste on the CPU.'],
+    ['n', 'On Saturday Uncle Dev arrives with a brand new power supply. Grandpa\'s old one smells burnt inside: that was the main problem all along. Together you swap it, blow out years of dust, and put fresh thermal paste on the CPU.'],
     ['dev', 'Ready? Press it.'],
-    ['n', 'Riya presses the round button. The fans whirr. One short beep. The old screen glows, and a logo appears.'],
-    ['riya', "It's alive! ...But what is it doing? It's just showing a logo."],
+    ['n', 'You press the round button. The fans whirr. One short beep. The old screen glows, and a logo appears.'],
+    ['you', "It's alive! ...But what is it doing? It's just showing a logo."],
     ['dev', "Waking up takes steps, just like you in the morning. First it checks its own body. Then it looks for where its mind is stored. Only then does it load that mind."],
-    ['riya', 'Its mind?'],
+    ['you', 'Its mind?'],
     ['dev', "The operating system. In Grandpa's case, Windows. Without it, all this hardware is a body with nobody home."]
   ],
   learn: [
@@ -473,12 +490,12 @@ BBB.chapters.push({
   topic: 'Putting a PC together',
   minutes: 6,
   story: [
-    ['n', "Grandpa's computer works again, but it's slow. Riya has been saving birthday money for a year. Uncle Dev has an idea: instead of buying a new computer, they will build one together, from parts."],
-    ['riya', 'Build it? Like Lego?'],
+    ['n', "Grandpa's computer works again, but it's slow. You have been saving birthday money for a year. Uncle Dev has an idea: instead of buying a new computer, the two of you will build one together, from parts."],
+    ['you', 'Build it? Like Lego?'],
     ['dev', "A bit like Lego. Parts only fit one way, and the order matters. But first, two rules. Rule one: always switch off and unplug the power before you touch anything inside."],
-    ['riya', 'And rule two?'],
+    ['you', 'And rule two?'],
     ['dev', "Static electricity. That tiny shock you sometimes get from a door handle? It can kill a chip, and you won't even feel it. So before you touch any part, touch a bare metal part of the case. Or wear an anti-static wrist strap."],
-    ['riya', 'Unplug. Touch metal. Got it. Where do we start?'],
+    ['you', 'Unplug. Touch metal. Got it. Where do we start?'],
     ['dev', "With a list. Every part has to work with the others. Then we start building on top of the motherboard's box, outside the case, where it's easy to see."]
   ],
   learn: [
@@ -531,18 +548,18 @@ BBB.chapters.push({
 
 BBB.chapters.push({
   id: 'hw-8', track: 'hardware',
-  title: 'Doctor Riya',
+  title: 'The computer doctor',
   topic: 'Finding and fixing problems',
   minutes: 6,
   story: [
-    ['n', "Two weeks later, Riya's new PC is running beautifully. Then Mrs. Kulkarni from the next flat knocks on the door holding her laptop. \"It has gone mad,\" she says. \"It's very slow, it switches itself off, and sometimes the screen stays black.\""],
-    ['riya', "Uncle Dev, I can't fix that. That's three problems at once!"],
+    ['n', "Two weeks later, your new PC is running beautifully. Then Mrs. Kulkarni from the next flat knocks on the door holding her laptop. \"It has gone mad,\" she says. \"It's very slow, it switches itself off, and sometimes the screen stays black.\""],
+    ['you', "Uncle Dev, I can't fix that. That's three problems at once!"],
     ['dev', "Doctors don't guess. They ask questions, check the simple things first, and change one thing at a time. You already know how every part works. Use that."],
-    ['riya', 'Okay... It switches itself off. That sounds like heat. Like a CPU without its fan.'],
+    ['you', 'Okay... It switches itself off. That sounds like heat. Like a CPU without its fan.'],
     ['dev', 'Good. So what would you check?'],
-    ['riya', 'The air vents! They might be blocked with dust.'],
-    ['n', "They were packed. A soft brush and a can of compressed air later, the laptop stopped switching off. Then Riya removed nine apps that were starting with Windows, and it was quick again. Mrs. Kulkarni brought a box of sweets the next day."],
-    ['riya', "I'm officially a computer doctor."]
+    ['you', 'The air vents! They might be blocked with dust.'],
+    ['n', "They were packed. A soft brush and a can of compressed air later, the laptop stopped switching off. Then you removed nine apps that were starting with Windows, and it was quick again. Mrs. Kulkarni brought a box of sweets the next day."],
+    ['you', "I'm officially a computer doctor."]
   ],
   learn: [
     { h: 'How a computer doctor thinks' },
@@ -572,6 +589,13 @@ BBB.chapters.push({
       ['Your medical file', 'Writing down what you tried']
     ]
   },
+  diagram: { flow: [
+    { t: 'Ask', s: 'what happens, and what changed?' },
+    { t: 'Simple things first', s: 'plug, cable, switch, screen input' },
+    { t: 'Change one thing', s: 'only one at a time' },
+    { t: 'Test', s: 'did that fix it?' },
+    { t: 'Write it down', s: 'what you tried and what worked' }
+  ], note: 'Not fixed yet? Go back to step 3 and change the next thing.' },
   words: [
     ['Troubleshooting', 'Finding the cause of a problem step by step, then fixing it.'],
     ['Beep code', 'A pattern of beeps at start-up that tells you which part failed its self-test.'],

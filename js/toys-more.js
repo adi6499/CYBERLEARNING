@@ -191,7 +191,7 @@ BBB.toys = BBB.toys || {};
 
   /* ---------- Pretend Linux terminal ---------- */
   T.shell = function (el) {
-    var HOME = '/home/riya';
+    var HOME = '/home/student';
     var fs, cwd, done;
     var TASKS = [
       { id: 'pwd', t: 'Find out where you are: <code>pwd</code>' },
@@ -207,7 +207,7 @@ BBB.toys = BBB.toys || {};
     function fresh() {
       return { type: 'dir', kids: {
         home: { type: 'dir', kids: {
-          riya: { type: 'dir', kids: {
+          student: { type: 'dir', kids: {
             'readme.txt': { type: 'file', text: 'Welcome to the lab PC! This is a practice terminal. Type help for commands.' },
             Documents: { type: 'dir', kids: {
               'notes.txt': { type: 'file', text: 'Lab to-do: clean dust, update Windows, check backups, label every cable.' },
@@ -225,7 +225,7 @@ BBB.toys = BBB.toys || {};
     el.innerHTML =
       '<p class="toy-intro">A pretend Linux terminal with pretend files. Nothing on your computer is touched. Try the tasks below, or type <code>help</code>.</p>' +
       '<div class="term" role="region" aria-label="Practice Linux terminal">' +
-        '<div class="term-bar"><span></span><span></span><span></span><em>riya@lab-pc-07 (practice)</em></div>' +
+        '<div class="term-bar"><span></span><span></span><span></span><em>student@lab-pc-07 (practice)</em></div>' +
         '<pre class="term-out" aria-live="polite"></pre>' +
         '<form class="term-line" autocomplete="off"><label class="term-prompt sh-prompt" for="shIn"></label>' +
           '<input id="shIn" class="term-in" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Type a command"></form>' +
@@ -241,7 +241,7 @@ BBB.toys = BBB.toys || {};
       out.appendChild(s); out.scrollTop = out.scrollHeight;
     }
     function short(p) { return p === HOME ? '~' : (p.indexOf(HOME + '/') === 0 ? '~' + p.slice(HOME.length) : p); }
-    function prompt() { return 'riya@lab:' + short(cwd) + '$'; }
+    function prompt() { return 'student@lab:' + short(cwd) + '$'; }
     function paintPrompt() { el.querySelector('.sh-prompt').textContent = prompt(); }
     function resolve(p) {
       if (!p || p === '~') return HOME;
@@ -281,7 +281,7 @@ BBB.toys = BBB.toys || {};
          '  clear            clear the screen'].forEach(function (l) { print(l); });
       },
       pwd: function () { print(cwd); tick('pwd'); },
-      whoami: function () { print('riya'); },
+      whoami: function () { print('student'); },
       echo: function (a) { print(a.join(' ')); },
       clear: function () { out.textContent = ''; },
       ls: function (a) {
@@ -635,8 +635,8 @@ BBB.toys = BBB.toys || {};
     var prev = null;
     el.innerHTML =
       '<p class="toy-intro">Type anything. Its SHA-256 fingerprint is always 64 hex characters, however long the text. Now change just one letter and compare.</p>' +
-      '<label class="field"><span class="k">Text</span><input type="text" class="hs-in" value="Riya" aria-label="Text to fingerprint"></label>' +
-      '<div class="chips">' + ['Riya', 'riya', 'Riya.', 'password123', 'Password123'].map(function (x) {
+      '<label class="field"><span class="k">Text</span><input type="text" class="hs-in" value="Hello" aria-label="Text to fingerprint"></label>' +
+      '<div class="chips">' + ['Hello', 'hello', 'Hello.', 'password123', 'Password123'].map(function (x) {
         return '<button type="button" class="chip-btn small" data-x="' + esc(x) + '">' + esc(x) + '</button>';
       }).join('') + '</div>' +
       '<div class="readout one"><div><span class="k">SHA-256 fingerprint</span><code class="hs-out"></code></div></div>' +
@@ -685,8 +685,8 @@ BBB.toys = BBB.toys || {};
 
     el.innerHTML =
       '<p class="toy-intro">Type a <b>made-up practice password</b> (never a real one, here or on any site you don\'t trust). It\'s checked only inside your browser: nothing is saved or sent.</p>' +
-      '<label class="field"><span class="k">Practice password</span><input type="text" class="pw-in" autocomplete="off" spellcheck="false" autocapitalize="off" value="riya2012" aria-label="Practice password"></label>' +
-      '<div class="chips">' + ['riya2012', 'P@ssw0rd', 'Tr0ub4dor&3', 'mango river cloud tiger', 'Purple-Kettle-Rain-42'].map(function (x) {
+      '<label class="field"><span class="k">Practice password</span><input type="text" class="pw-in" autocomplete="off" spellcheck="false" autocapitalize="off" value="cricket2012" aria-label="Practice password"></label>' +
+      '<div class="chips">' + ['cricket2012', 'P@ssw0rd', 'Tr0ub4dor&3', 'mango river cloud tiger', 'Purple-Kettle-Rain-42'].map(function (x) {
         return '<button type="button" class="chip-btn small" data-x="' + esc(x) + '">' + esc(x) + '</button>';
       }).join('') + '</div>' +
       '<div class="meter" aria-hidden="true"><i></i></div>' +

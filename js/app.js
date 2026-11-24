@@ -49,6 +49,7 @@
     search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
     reset: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
     clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    play: '<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>',
     story: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
     bulb: '<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>',
     link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
@@ -95,7 +96,7 @@
     var cta = allDone ? 'Read the story again' : (started ? 'Continue: ' + esc(next.title) : 'Start the story');
 
     var how = [
-      ['story', 'Read the story', 'A short scene with Riya and Uncle Dev.'],
+      ['story', 'Read the story', 'A short scene starring you and Uncle Dev.'],
       ['bulb', 'See what\'s really happening', 'The same idea, explained simply.'],
       ['pointer', 'Try it yourself', 'Flip switches, wire a cable, crack a code.'],
       ['quiz', 'Check yourself', 'A few quick questions. No pressure.']
@@ -105,7 +106,7 @@
       '<section class="wrap hero">' +
         '<p class="eyebrow">A story-based course for complete beginners</p>' +
         '<h1>Learn how computers and networks really work.</h1>' +
-        '<p class="lead">Follow Riya from fixing her grandfather\'s old computer, all the way to building networks and stopping hackers. ' + total + ' short chapters in ' + words(TRACK_IDS.length) + ' parts. No experience needed.</p>' +
+        '<p class="lead">You are the hero of this story. You start by fixing your grandfather\'s old computer, and end up building networks and stopping hackers. ' + total + ' short chapters in ' + words(TRACK_IDS.length) + ' parts. No experience needed.</p>' +
         '<div class="actions">' +
           '<a class="btn btn-primary" href="#/chapter/' + next.id + '">' + cta + ' ' + ic('arrowRight') + '</a>' +
           '<a class="btn btn-secondary" href="#/chapters">See all chapters</a>' +
@@ -223,7 +224,7 @@
     if (b.warn) return '<aside class="note warn"><strong>Be careful</strong><p>' + b.warn + '</p></aside>';
     if (b.table) {
       var head = b.table.head;
-      return '<div class="table-wrap"><table>' +
+      return '<div class="table-wrap' + (b.table.keep ? ' keep' : '') + '"><table>' +
         '<thead><tr>' + head.map(function (h) { return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead>' +
         '<tbody>' + b.table.rows.map(function (r) {
           return '<tr>' + r.map(function (cell, j) {
@@ -305,12 +306,14 @@
         '<div class="story">' + c.story.map(lineHTML).join('') + '</div>' +
       '</section>' +
 
+      (sceneFor(c) ? '<section class="read sec"><h2 class="sec-title">' + ic('play') + 'Watch it happen</h2>' +
+        '<p class="sec-sub">A short animation. It plays by itself; use Back and Next to go at your own speed.</p>' +
+        '<div class="card scene-card" data-scene></div></section>' : '') +
+
       '<section class="read sec">' +
         '<h2 class="sec-title">' + ic('bulb') + 'What\'s really happening</h2>' +
         '<div class="prose learn">' + c.learn.map(blockHTML).join('') + '</div>' +
       '</section>' +
-
-      (c.diagram ? '<section class="read sec"><h2 class="sec-title">' + ic('picture') + 'The picture</h2>' + diagramHTML(c.diagram) + '</section>' : '') +
 
       (a ? '<section class="read sec">' +
         '<h2 class="sec-title">' + ic('link') + a.title + '</h2>' +
@@ -565,11 +568,60 @@
     });
   }
 
+  /* ---------- Animated lessons ("Watch it happen") ---------- */
+  // A hand-made scene if the chapter names one, otherwise an animated version of its diagram.
+  function sceneFor(c) {
+    if (c.scene && BBB.scenes && BBB.scenes[c.scene]) return function () { return BBB.scenes[c.scene]; };
+    if (c.diagram && BBB.mountScene) return function () { return c.diagram.flow ? BBB.flowScene(c.diagram) : BBB.stackScene(c.diagram); };
+    if (c.diagram) return function () { return null; };
+    return null;
+  }
+
+  /* ---------- Gentle animation while scrolling ---------- */
+  var REVEAL = '.sec-title, .sec-sub, .story .line, .prose > *, .map-row:not(.map-head), .words > div, #quiz .q, .chapter-list > li, .part, .how > li, .person, .list-cards > .card, .ticks > li, .toy, .scene-card, .finish, .nav-card, .stack-links > .row-link, .page-head > *, .hero > *';
+  // Things fade in as they scroll into view. Checked on every scroll, so nothing can stay hidden:
+  // anything already on screen, or above it, is always shown.
+  var canReveal = !reduceMotion();
+  var pending = [];
+  if (canReveal) document.documentElement.classList.add('can-reveal');
+  function revealCheck() {
+    if (!pending.length) return;
+    var h = window.innerHeight || document.documentElement.clientHeight, k = 0;
+    pending = pending.filter(function (el) {
+      if (!el.isConnected) return false;
+      if (el.getBoundingClientRect().top > h * 0.94) return true;
+      el.style.transitionDelay = Math.min(k++ * 70, 420) + 'ms';
+      el.classList.add('in');
+      setTimeout(function () { el.style.transitionDelay = ''; }, 1400);
+      return false;
+    });
+  }
+  function reveal(root) {
+    if (!canReveal) return;
+    pending = Array.prototype.slice.call(root.querySelectorAll(REVEAL));
+    pending.forEach(function (el) { el.classList.add('rv'); });
+    setTimeout(revealCheck, 40);
+  }
+  window.addEventListener('scroll', revealCheck, { passive: true });
+  window.addEventListener('resize', revealCheck);
+
   /* ---------- Wiring up a chapter after it is on the page ---------- */
   function wireChapter(c) {
     state.seen[c.id] = true;
     state.last = c.id;
     save();
+
+    main.querySelectorAll('[data-scene]').forEach(function (el) {
+      try {
+        var make = sceneFor(c), scene = make && make();
+        if (!scene) throw new Error('No animation available');
+        BBB.mountScene(el, scene);
+      } catch (err) {
+        el.classList.remove('player');
+        el.innerHTML = c.diagram ? '<div class="static-diagram">' + diagramHTML(c.diagram) + '</div>' : '<p class="muted">This animation couldn\'t load, but the rest of the chapter works as normal.</p>';
+        if (window.console) console.error(err);
+      }
+    });
 
     main.querySelectorAll('[data-toy]').forEach(function (el) {
       var name = el.getAttribute('data-toy');
@@ -764,6 +816,7 @@
     document.title = title;
     setNav(nav);
     if (after) after();
+    reveal(main);
     window.scrollTo(0, 0);
     try { main.focus({ preventScroll: true }); } catch (e) {}
   }

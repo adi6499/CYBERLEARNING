@@ -24,7 +24,7 @@ for (const f of order) {
   try { vm.runInContext(readFileSync(join(js, f), 'utf8'), ctx, { filename: f }); }
   catch (e) { errors.push(`${f}: ${e.message}`); }
 }
-for (const f of ['toys.js', 'toys-more.js']) {
+for (const f of ['toys.js', 'toys-more.js', 'scenes.js']) {
   if (!existsSync(join(js, f))) continue;
   try { vm.runInContext(readFileSync(join(js, f), 'utf8'), ctx, { filename: f }); }
   catch (e) { errors.push(`${f}: ${e.message}`); }
@@ -72,6 +72,8 @@ for (const c of B.chapters || []) {
     (d.flow || d.stack || []).forEach((s, i) => { if (!s.t || !s.s) err(`diagram item ${i + 1} needs t and s`); });
   }
   if (c.toy && !toys[c.toy]) warnings.push(`${where}: toy "${c.toy}" is not built yet`);
+  if (c.scene && !(B.scenes || {})[c.scene]) errors.push(`${where}: animation scene "${c.scene}" does not exist in js/scenes.js`);
+  if (!c.scene && !c.diagram && !c.toy) warnings.push(`${where}: nothing moves in this chapter (no scene, diagram or activity)`);
   if (!Array.isArray(c.words) || !c.words.length) err('words missing');
   else c.words.forEach((w, i) => { if (!Array.isArray(w) || w.length !== 2) err(`word ${i + 1} must be [term, meaning]`); });
   if (!Array.isArray(c.quiz) || !c.quiz.length) err('quiz missing');

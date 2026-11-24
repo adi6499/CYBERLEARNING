@@ -10,12 +10,12 @@ BBB.chapters.push({
   topic: 'What is a network?',
   minutes: 4,
   story: [
-    ['n', "Riya's best friend Arjun has moved to Bengaluru, 800 kilometres away. They have a plan: tonight at 6, they will play an online game together, Riya on her new PC and Arjun on his laptop."],
-    ['riya', 'Uncle Dev, how does my game even know where Arjun is? He\'s in a different city!'],
+    ['n', "Your best friend Arjun has moved to Bengaluru, 800 kilometres away. You have a plan: tonight at 6, the two of you will play an online game together, you on your new PC and Arjun on his laptop."],
+    ['you', 'Uncle Dev, how does my game even know where Arjun is? He\'s in a different city!'],
     ['dev', 'Remember passing notes in class? You write a note, fold it, write your friend\'s name on the outside, and pass it down the row until it reaches them.'],
-    ['riya', '...And sometimes the teacher catches it.'],
+    ['you', '...And sometimes the teacher catches it.'],
     ['dev', "Networks have teachers too. We'll get to security later. But that's the whole idea of a network: devices connected together, passing messages along until each message reaches the right one."],
-    ['riya', 'So the internet is just a very, very long row of desks?'],
+    ['you', 'So the internet is just a very, very long row of desks?'],
     ['dev', "A row of desks that wraps around the whole planet. Let's follow one message, yours to Arjun, all the way there."]
   ],
   learn: [
@@ -46,8 +46,8 @@ BBB.chapters.push({
     ]
   },
   diagram: { flow: [
-    { t: "Riya's PC", s: 'the client' },
-    { t: 'Home router', s: 'her LAN' },
+    { t: 'Your PC', s: 'the client' },
+    { t: 'Home router', s: 'your LAN' },
     { t: 'Internet', s: 'network of networks' },
     { t: 'Game server', s: 'in a data centre' },
     { t: "Arjun's laptop", s: 'another client' }
@@ -73,13 +73,14 @@ BBB.chapters.push({
   title: 'Every house has an address',
   topic: 'IP addresses and MAC addresses',
   minutes: 6,
+  scene: 'address',
   story: [
-    ['riya', "If messages get passed along, how does anyone know where to pass them?"],
+    ['you', "If messages get passed along, how does anyone know where to pass them?"],
     ['dev', 'How does the postman find our flat?'],
-    ['riya', 'Our address. Flat 4, Shanti Apartments, Kothrud, Pune.'],
+    ['you', 'Our address. Flat 4, Shanti Apartments, Kothrud, Pune.'],
     ['dev', 'Computers have addresses too. They\'re called IP addresses. Open Command Prompt and type <code>ipconfig</code>.'],
-    ['n', 'Riya types it and presses Enter. Among the lines of text, one stands out: <code>IPv4 Address . . . : 192.168.1.7</code>'],
-    ['riya', "Four numbers with dots in between. That's my computer's address?"],
+    ['n', 'You type it and press Enter. Among the lines of text, one stands out: <code>IPv4 Address . . . : 192.168.1.7</code>'],
+    ['you', "Four numbers with dots in between. That's my computer's address?"],
     ['dev', "Its address inside our home. Out on the internet, our whole house shares one different address. And your computer has one more ID, given to it in the factory, like the name you're born with. That's called the MAC address."]
   ],
   learn: [
@@ -137,12 +138,12 @@ BBB.chapters.push({
   topic: 'Routers, switches, modems and access points',
   minutes: 5,
   story: [
-    ['n', 'Riya follows the blue cable from her PC, along the skirting board, down the hallway. It ends at a small white box with blinking green lights, next to the TV.'],
-    ['riya', 'This is the Wi-Fi box, right?'],
+    ['n', 'You follow the blue cable from your PC, along the skirting board, down the hallway. It ends at a small white box with blinking green lights, next to the TV.'],
+    ['you', 'This is the Wi-Fi box, right?'],
     ['dev', "Everyone calls it that. But it's really four machines squeezed into one box. Look at the back."],
-    ['riya', 'One cable coming in from outside. Four yellow sockets. And two antennas.'],
+    ['you', 'One cable coming in from outside. Four yellow sockets. And two antennas.'],
     ['dev', "The cable from outside comes from our internet provider. The part that talks to it is the modem. The four sockets are a little switch. The antennas are the access point, for Wi-Fi. And the brain that decides where every message should go? That's the router."],
-    ['riya', "It's like the post office in our building! Letters for someone in the building go straight to their flat. Letters for anywhere else go out to the city."],
+    ['you', "It's like the post office in our building! Letters for someone in the building go straight to their flat. Letters for anywhere else go out to the city."],
     ['dev', 'That is exactly what a router does.']
   ],
   learn: [
@@ -174,7 +175,7 @@ BBB.chapters.push({
     { t: 'Router', s: 'decides where to send' },
     { t: 'Modem / ONT', s: 'talks to the ISP' },
     { t: 'ISP', s: 'then the internet' }
-  ], note: "Riya's PC plugs into the switch with a cable. Her phone uses the access point." },
+  ], note: 'Your PC plugs into the switch with a cable. Your phone uses the access point.' },
   words: [
     ['Router', 'Connects different networks together and decides where each message goes.'],
     ['Switch', 'Connects devices inside one network and sends each message only where it needs to go.'],
@@ -195,13 +196,14 @@ BBB.chapters.push({
   title: 'Roads and radio waves',
   topic: 'Cables, fibre and Wi-Fi',
   minutes: 6,
+  scene: 'waves',
   story: [
-    ['riya', 'Why does my PC need a cable, but my phone doesn\'t?'],
+    ['you', 'Why does my PC need a cable, but my phone doesn\'t?'],
     ['dev', "Both are roads for data. A cable is like a private paved road: fast, steady, no traffic from anyone else. Wi-Fi is more like shouting across a playground. Very handy, but walls get in the way, and when everyone shouts at once it gets messy."],
-    ['riya', 'That\'s why my video calls get choppy in my bedroom!'],
+    ['you', 'That\'s why my video calls get choppy in my bedroom!'],
     ['dev', 'Two brick walls and a steel cupboard between you and the router. Let\'s try something.'],
-    ['n', 'They move the router from behind the TV to a high shelf in the middle of the hallway, and switch Riya\'s phone to the 5 GHz network. The bedroom signal jumps from one bar to three.'],
-    ['riya', 'We didn\'t buy anything, and it\'s faster!'],
+    ['n', 'You and Uncle Dev move the router from behind the TV to a high shelf in the middle of the hallway, and switch your phone to the 5 GHz network. The bedroom signal jumps from one bar to three.'],
+    ['you', 'We didn\'t buy anything, and it\'s faster!'],
     ['dev', "Knowing how radio waves behave is free."]
   ],
   learn: [
@@ -263,13 +265,14 @@ BBB.chapters.push({
   title: 'A letter cut into postcards',
   topic: 'Packets',
   minutes: 5,
+  scene: 'packets',
   story: [
-    ['n', 'Riya types into the game chat: "Hi Arjun! Ready at 6?" and presses Enter. Before she can even blink, Arjun replies with a thumbs up.'],
-    ['riya', 'That went 800 kilometres in less than a second?'],
+    ['n', 'You type into the game chat: "Hi Arjun! Ready at 6?" and press Enter. Before you can even blink, Arjun replies with a thumbs up.'],
+    ['you', 'That went 800 kilometres in less than a second?'],
     ['dev', 'And it didn\'t even travel in one piece. Your computer cut it into small numbered pieces called packets. A short message might fit in one or two. A photo becomes hundreds. A movie, millions.'],
-    ['riya', 'Why cut it up at all?'],
+    ['you', 'Why cut it up at all?'],
     ['dev', "Imagine posting a whole storybook as postcards. Each card has the address, your name, and a page number. If one card gets lost, you only send that one card again, not the whole book. And if one road is jammed, some cards can take a different road."],
-    ['riya', "And Arjun's computer uses the page numbers to put them back in order!"],
+    ['you', "And Arjun's computer uses the page numbers to put them back in order!"],
     ['dev', 'Try it yourself.']
   ],
   learn: [
@@ -320,11 +323,11 @@ BBB.chapters.push({
   topic: 'DNS: turning names into addresses',
   minutes: 5,
   story: [
-    ['riya', "Wait. If every computer has a number for an address, how come I just type youtube.com? I don't know YouTube's number."],
+    ['you', "Wait. If every computer has a number for an address, how come I just type youtube.com? I don't know YouTube's number."],
     ['dev', "Do you know Grandma's phone number by heart?"],
-    ['riya', "No. I just tap 'Grandma' in my contacts."],
+    ['you', "No. I just tap 'Grandma' in my contacts."],
     ['dev', 'Your phone looks up the number for you. The internet has a giant contacts list too. It\'s called DNS, the Domain Name System. You type a name, and DNS finds the number.'],
-    ['riya', 'Who looks after that list? It must be enormous.'],
+    ['you', 'Who looks after that list? It must be enormous.'],
     ['dev', "No single computer has the whole thing. It's split up. It's like asking at a library: the front desk sends you to the right floor, the floor sends you to the right shelf, and the shelf has your book. Want to watch a lookup happen?"]
   ],
   learn: [
@@ -375,11 +378,11 @@ BBB.chapters.push({
   topic: 'Protocols, TCP and UDP, ports and layers',
   minutes: 7,
   story: [
-    ['riya', 'There are millions of different computers and phones. How do they all understand each other?'],
+    ['you', 'There are millions of different computers and phones. How do they all understand each other?'],
     ['dev', "The same way you and Arjun understand each other on a call. You agreed to speak the same language, and you take turns. Computers agree on rules too. Each set of rules is called a protocol."],
-    ['riya', 'Like traffic rules?'],
+    ['you', 'Like traffic rules?'],
     ['dev', "Exactly like traffic rules. And some rules are strict, some are relaxed. Your chat messages use TCP. It's like registered post: every packet is checked off, and anything lost is sent again. But in the game, your character's position uses UDP. Just throw it and keep going. If one update gets lost, never mind, the next one is already on its way."],
-    ['riya', 'Because an old position is useless anyway! By the time it arrives, I\'ve already moved.'],
+    ['you', 'Because an old position is useless anyway! By the time it arrives, I\'ve already moved.'],
     ['dev', 'Now you sound like a network engineer.']
   ],
   learn: [
@@ -446,12 +449,12 @@ BBB.chapters.push({
   topic: 'Staying safe on a network',
   minutes: 6,
   story: [
-    ['n', 'The next morning, Riya\'s phone buzzes with an SMS: "URGENT! Your game account will be BLOCKED today. Verify now: free-gems-login.xyz"'],
-    ['riya', 'Uncle Dev! I have to verify my account right now or they\'ll block it!'],
+    ['n', 'The next morning, your phone buzzes with an SMS: "URGENT! Your game account will be BLOCKED today. Verify now: free-gems-login.xyz"'],
+    ['you', 'Uncle Dev! I have to verify my account right now or they\'ll block it!'],
     ['dev', 'Stop. Read it again, slowly. Who sent it? What is the web address? And why are they in such a hurry?'],
-    ['riya', "...It's from a random number. That isn't the game's real website. And they want me to panic so I don't think."],
+    ['you', "...It's from a random number. That isn't the game's real website. And they want me to panic so I don't think."],
     ['dev', "That's called phishing: fishing for your password. The scariest attacks don't break through anything. They just trick you into opening the door yourself."],
-    ['riya', 'So who are the guards at our gate?'],
+    ['you', 'So who are the guards at our gate?'],
     ['dev', "Let's count them. And you're one of them."]
   ],
   learn: [
@@ -491,6 +494,14 @@ BBB.chapters.push({
       ['Fixing a broken window', 'Installing updates']
     ]
   },
+  diagram: { stack: [
+    { t: 'You', s: 'stop, read slowly, and never share an OTP or password' },
+    { t: 'Strong, different passwords', s: 'one long passphrase for each account' },
+    { t: 'Two-factor authentication', s: 'a second check, so a stolen password is not enough' },
+    { t: 'Updates and antivirus', s: 'close the holes attackers use' },
+    { t: 'Firewall', s: 'blocks traffic that is not allowed in or out' },
+    { t: 'Encryption (HTTPS, WPA2/WPA3)', s: 'scrambles data so others cannot read it' }
+  ], note: 'No single guard is perfect. Together, they make a strong wall.' },
   words: [
     ['Firewall', 'Software or hardware that blocks network traffic that is not allowed.'],
     ['Phishing', 'Tricking people into giving away passwords or codes, usually with a fake message.'],
@@ -513,14 +524,14 @@ BBB.chapters.push({
   topic: 'Finding network problems',
   minutes: 7,
   story: [
-    ['n', 'Six o\'clock. Game time. Riya clicks "Join match"... "Connection failed."'],
-    ['riya', "Noooo! The internet is broken!"],
+    ['n', 'Six o\'clock. Game time. You click "Join match"... "Connection failed."'],
+    ['you', "Noooo! The internet is broken!"],
     ['dev', "Is it? A detective never just says 'broken'. A detective finds out exactly where the message stops. Start close to home and walk outward, one step at a time."],
-    ['riya', 'Like Doctor Riya. Simple things first.'],
+    ['you', 'Like a computer doctor. Simple things first.'],
     ['dev', "Exactly. Is your PC connected at all? Does it have an address? Can it reach our router? Can it reach the internet? Can it find names? Each tool answers one question."],
-    ['n', "Five minutes later, Riya found it. When they moved the router onto the shelf, her blue cable had slipped half out of its socket. Click. Two green lights. She joined the match with a minute to spare."],
+    ['n', "Five minutes later, you find it. When you moved the router onto the shelf, your blue cable slipped half out of its socket. Click. Two green lights. You join the match with a minute to spare."],
     ['arjun', 'Finally! What took you so long?'],
-    ['riya', 'Detective work.']
+    ['you', 'Detective work.']
   ],
   learn: [
     { p: 'Network problems are found by <b>working outward</b>, one step at a time. Each step has a tool. (On Windows, open <b>Command Prompt</b> and type these.)' },
@@ -577,7 +588,7 @@ BBB.whatNext = {
     'Find your router\'s settings page (usually <code>192.168.1.1</code> or <code>192.168.0.1</code>) with permission from whoever owns it, and look around without changing anything.',
     'Install a free virtual machine program and run Linux inside it. Practise the terminal commands from Part 4 there, where nothing can break.',
     'Build the tech fest network from Part 5 in Cisco Packet Tracer: switches, VLANs, subnets and a router.',
-    'Buy a cheap microcontroller kit and build Riya\'s plant-watering machine from Part 3.',
+    'Buy a cheap microcontroller kit and build your own plant-watering machine from Part 3.',
     'Turn on two-factor authentication on every account you own, and move to a password manager.',
     'Join a beginner Capture the Flag (CTF) competition: legal hacking puzzles, often run by schools and colleges.'
   ],

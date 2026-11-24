@@ -1,6 +1,6 @@
 /* Byte by Byte — story content.
    Part 4: The technician's toolkit (IT support).
-   Same format as story-hardware.js. Riya fixes the school's computer lab before exams. */
+   Same format as story-hardware.js. You fix the school's computer lab before exams. */
 window.BBB = window.BBB || {};
 BBB.chapters = BBB.chapters || [];
 
@@ -10,12 +10,12 @@ BBB.chapters.push({
   topic: 'Partitions, file systems and formatting',
   minutes: 7,
   story: [
-    ['n', "After the science fair, Riya's name is all over school. On Monday the computer teacher, Ms. Fernandes, calls her to the lab. Thirty grey PCs sit in rows. Half are painfully slow, three won't start, and one smells of burnt dust. \"Exams start in five weeks,\" she says. \"Can you help me bring this lab back to life?\""],
-    ['riya', "Uncle Dev, I said yes! But here's the first problem. Ms. Fernandes wants to copy a 5 GB exam video onto a pen drive, and Windows says the file is too large. The pen drive is 32 GB and completely empty!"],
+    ['n', "After the science fair, your name is all over school. On Monday the computer teacher, Ms. Fernandes, calls you to the lab. Thirty grey PCs sit in rows. Half are painfully slow, three won't start, and one smells of burnt dust. \"Exams start in five weeks,\" she says. \"Can you help me bring this lab back to life?\""],
+    ['you', "Uncle Dev, I said yes! But here's the first problem. Ms. Fernandes wants to copy a 5 GB exam video onto a pen drive, and Windows says the file is too large. The pen drive is 32 GB and completely empty!"],
     ['dev', "Ah. That's not about space. It's about how the pen drive is organised. Right-click it and choose Properties. What does it say next to File system?"],
-    ['riya', 'FAT32.'],
+    ['you', 'FAT32.'],
     ['dev', "There's your answer. FAT32 is an old way of organising a drive, and it can't hold any single file bigger than 4 GB. Think of a cupboard where every drawer is a fixed size. Your video simply doesn't fit in one drawer."],
-    ['riya', 'So I need a cupboard with bigger drawers?'],
+    ['you', 'So I need a cupboard with bigger drawers?'],
     ['dev', "You need a different file system, like exFAT. But changing it means formatting, and formatting wipes the drive, so copy anything important off it first. Then let's learn how drives are really organised."]
   ],
   learn: [
@@ -102,11 +102,11 @@ BBB.chapters.push({
   minutes: 8,
   story: [
     ['n', "In the corner of the lab hums the school's only server: a big tower PC that stores every student's projects. This morning it starts clicking. Click. Click. Click. Then a warning pops up: <em>S.M.A.R.T. status BAD. Back up your files and replace the disk.</em>"],
-    ['riya', 'Uncle Dev, the server is clicking! Five years of student projects are on there!'],
+    ['you', 'Uncle Dev, the server is clicking! Five years of student projects are on there!'],
     ['dev', "Clicking is a hard disk's way of saying goodbye. Don't keep restarting it. First question: is there a backup?"],
-    ['riya', "Ms. Fernandes says the server has two disks that copy each other all the time. So that's a backup, right?"],
+    ['you', "Ms. Fernandes says the server has two disks that copy each other all the time. So that's a backup, right?"],
     ['dev', "That's called RAID 1, a mirror. It's good: if one disk dies, the other keeps going, so today you can swap the clicking disk without losing anything. But a mirror is not a backup. If a virus scrambles a file, or someone deletes a folder, the mirror copies that mistake onto both disks instantly."],
-    ['riya', 'So the mirror protects against a broken disk, but not against a broken file.'],
+    ['you', 'So the mirror protects against a broken disk, but not against a broken file.'],
     ['dev', "Exactly. Today we replace the dying disk. Then we build a real backup plan. Rule number one in IT: never just one copy."]
   ],
   learn: [
@@ -186,13 +186,13 @@ BBB.chapters.push({
   topic: 'Monitors, connectors, USB, printers and other devices',
   minutes: 9,
   story: [
-    ['n', "Week two. The disks are sorted, so Ms. Fernandes hands Riya a new list: <em>Monitor 7 flickers. Monitor 12 looks blurry. The projector shows nothing. The printer says 'Ready' but prints nothing.</em>"],
-    ['riya', "Uncle Dev, none of these problems are even inside a computer!"],
+    ['n', "Week two. The disks are sorted, so Ms. Fernandes hands you a new list: <em>Monitor 7 flickers. Monitor 12 looks blurry. The projector shows nothing. The printer says 'Ready' but prints nothing.</em>"],
+    ['you', "Uncle Dev, none of these problems are even inside a computer!"],
     ['dev', "Welcome to real IT support. Half of all problems live in the things people plug in. Start with monitor 12. What cable does it use?"],
-    ['riya', "A thick blue plug with two screws. And everything on screen looks slightly stretched."],
+    ['you', "A thick blue plug with two screws. And everything on screen looks slightly stretched."],
     ['dev', "That's VGA, an old analogue connection, so the picture is softer. And the screen isn't set to its native resolution. Fix the resolution first, then swap to HDMI if the PC has it."],
     ['n', "Ten minutes later, monitor 12 is sharp. Monitor 7's flicker was a loose cable. The projector was set to the wrong input. That leaves the printer."],
-    ['riya', "The printer says Ready, but forty documents are stuck in the queue."],
+    ['you', "The printer says Ready, but forty documents are stuck in the queue."],
     ['dev', "Classic. The print queue is jammed. Let's learn how all these devices work, and then we'll unjam it."]
   ],
   learn: [
@@ -270,6 +270,12 @@ BBB.chapters.push({
       ['Being introduced once, so you recognise each other next time', 'Bluetooth pairing']
     ]
   },
+  diagram: { flow: [
+    { t: 'Graphics', s: 'the GPU draws the picture' },
+    { t: 'Port', s: 'HDMI, DisplayPort or USB-C' },
+    { t: 'Cable', s: 'carries the picture, and often sound' },
+    { t: 'Monitor', s: 'shows it at its resolution and refresh rate' }
+  ], note: 'If the screen stays black, check each step in this order: is the cable in the right port, and is the monitor on the right input?' },
   words: [
     ['Resolution', 'The number of pixels on a screen, such as 1920 × 1080.'],
     ['Native resolution', "A monitor's real number of pixels. Using it gives the sharpest picture."],
@@ -295,12 +301,12 @@ BBB.chapters.push({
   topic: 'Laptops, tablets and smartphones',
   minutes: 8,
   story: [
-    ['n', "Word spreads. Teachers start bringing their own devices to Riya's corner of the lab. Mr. Joshi's laptop won't charge. Ms. Fernandes' phone is full. And the sports teacher's laptop gets so hot it switches itself off in the middle of his cricket videos."],
-    ['riya', "Uncle Dev, laptops are just small PCs. Can't I open them up the same way?"],
+    ['n', "Word spreads. Teachers start bringing their own devices to your corner of the lab. Mr. Joshi's laptop won't charge. Ms. Fernandes' phone is full. And the sports teacher's laptop gets so hot it switches itself off in the middle of his cricket videos."],
+    ['you', "Uncle Dev, laptops are just small PCs. Can't I open them up the same way?"],
     ['dev', "Same ideas, very different packaging. A laptop squeezes everything into a thin case, so many parts are glued or soldered down. Now, where does the sports teacher use his laptop?"],
-    ['riya', 'On his bed. Sitting on a pillow.'],
+    ['you', 'On his bed. Sitting on a pillow.'],
     ['dev', "There's your overheating. The air vents are underneath, and the pillow blocks them. And Mr. Joshi's charger: how many watts is it?"],
-    ['riya', "It's a phone charger. It says 20 W. He lost his laptop's own charger."],
+    ['you', "It's a phone charger. It says 20 W. He lost his laptop's own charger."],
     ['dev', "Most laptops need a lot more power than that. With too little, a laptop charges very slowly, or not at all. Let's learn what's inside the computers people carry around."]
   ],
   learn: [
@@ -357,6 +363,13 @@ BBB.chapters.push({
       ['A spare house key kept with a trusted neighbour', 'Cloud sync of your phone']
     ]
   },
+  diagram: { stack: [
+    { t: 'Screen and touch layer', s: 'shows the picture and feels your fingers' },
+    { t: 'SoC (system on a chip)', s: 'CPU, graphics and more, all on one chip' },
+    { t: 'Memory and storage', s: 'usually soldered on, so they cannot be upgraded' },
+    { t: 'Battery', s: 'lithium-ion: keep it away from heat; a swollen one is dangerous' },
+    { t: 'Radios and sensors', s: 'Wi-Fi, mobile data, Bluetooth, GPS, cameras' }
+  ] },
   words: [
     ['Soldered', 'Melted permanently onto a circuit board, so it cannot be removed or upgraded.'],
     ['Lithium-ion battery', 'The rechargeable battery in almost every laptop and phone.'],
@@ -382,11 +395,11 @@ BBB.chapters.push({
   minutes: 9,
   story: [
     ['n', "Week three. The PCs that do work are full of junk: browser toolbars, fake \"speed booster\" apps, and games installed by students. One PC has 42 programs starting every time Windows starts."],
-    ['riya', "How did students even install all this? It's a school lab!"],
+    ['you', "How did students even install all this? It's a school lab!"],
     ['dev', "Let me guess. Everyone logs in with the same account, and it's an administrator account."],
-    ['riya', "The password is written on a sticky note on every monitor. It's lab123."],
+    ['you', "The password is written on a sticky note on every monitor. It's lab123."],
     ['dev', "(laughing) Then every student is king of every PC. Step one: students get a standard account that can't install software. The administrator account is only for you and Ms. Fernandes, with a real password."],
-    ['riya', 'And the 42 start-up programs?'],
+    ['you', 'And the 42 start-up programs?'],
     ['dev', "Task Manager. Today you learn to look under the operating system's bonnet."]
   ],
   learn: [
@@ -406,8 +419,8 @@ BBB.chapters.push({
     { h: 'File paths' },
     { ul: [
       'A <b>path</b> is the full address of a file.',
-      'Windows: <code>C:\\Users\\Riya\\Documents\\notes.txt</code>. Drive letters, and backslashes between folders.',
-      'Linux and macOS: <code>/home/riya/Documents/notes.txt</code>. One big tree that starts at <code>/</code> (called the root), with forward slashes.'
+      'Windows: <code>C:\\Users\\Student\\Documents\\notes.txt</code>. Drive letters, and backslashes between folders.',
+      'Linux and macOS: <code>/home/student/Documents/notes.txt</code>. One big tree that starts at <code>/</code> (called the root), with forward slashes.'
     ] },
     { h: 'Task Manager: what is running?' },
     { ul: [
@@ -466,7 +479,7 @@ BBB.chapters.push({
     ['Administrator account', 'An account that can install software and change system settings.'],
     ['UAC', 'User Account Control: the Windows pop-up that appears when something wants administrator power.'],
     ['File permissions', 'Rules that say who may read, write or run a file.'],
-    ['Path', 'The full address of a file, such as C:\\Users\\Riya\\notes.txt.'],
+    ['Path', 'The full address of a file, such as C:\\Users\\Student\\notes.txt.'],
     ['Process', 'A program that is running right now.'],
     ['Service', 'A program that runs in the background with no window.'],
     ['Safe Mode', 'Starting Windows with only the basics, to track down and fix problems.']
@@ -485,12 +498,12 @@ BBB.chapters.push({
   topic: 'The command line',
   minutes: 8,
   story: [
-    ['n', 'The lab has 30 PCs, and Riya has been clicking through the same settings on every one of them. By PC number 9, her wrist hurts.'],
-    ['riya', "Uncle Dev, there has to be a faster way. I've done the same twenty clicks nine times!"],
+    ['n', 'The lab has 30 PCs, and you have been clicking through the same settings on every one of them. By PC number 9, your wrist hurts.'],
+    ['you', "Uncle Dev, there has to be a faster way. I've done the same twenty clicks nine times!"],
     ['dev', 'There is. Remember Command Prompt, from the day you fixed your game connection?'],
-    ['riya', 'ipconfig and ping! The detective tools.'],
+    ['you', 'ipconfig and ping! The detective tools.'],
     ['dev', "That black window can do much more than network checks. You can make folders, copy files, see what's running, even repair Windows itself. And you can save a list of commands as a script, and run it on all 30 PCs."],
-    ['riya', 'So twenty clicks become one command?'],
+    ['you', 'So twenty clicks become one command?'],
     ['dev', "Exactly. And servers and network equipment are mostly controlled this way, often from far away. Let's learn to talk to the computer in text."]
   ],
   learn: [
@@ -525,7 +538,7 @@ BBB.chapters.push({
     ] } },
     { h: 'Paths on the command line' },
     { ul: [
-      'An <b>absolute path</b> starts from the very top: <code>/home/riya/notes</code> or <code>C:\\Users\\Riya</code>.',
+      'An <b>absolute path</b> starts from the very top: <code>/home/student/notes</code> or <code>C:\\Users\\Student</code>.',
       'A <b>relative path</b> starts from where you are now: <code>notes/today.txt</code>.',
       '<code>.</code> means "this folder" and <code>..</code> means "the folder above". So <code>cd ..</code> goes up one level.',
       'Press <b>Tab</b> to auto-complete file and folder names. Fewer typos!',
@@ -578,11 +591,11 @@ BBB.chapters.push({
   minutes: 8,
   story: [
     ['n', 'Thursday afternoon. A thunderstorm rolls over Pune. The lab lights flicker, go out, then come back with a loud crack. When the power returns, PC number 22 won\'t start, and it smells of burnt plastic.'],
-    ['riya', 'Uncle Dev, a PC died in the storm! The power came back with a bang.'],
+    ['you', 'Uncle Dev, a PC died in the storm! The power came back with a bang.'],
     ['dev', 'A power surge: a sudden spike of voltage, often during lightning or the moment power comes back. Was PC 22 plugged into a UPS?'],
-    ['riya', "The lab has one UPS, but it only powers Ms. Fernandes' PC. All the others go straight into the wall."],
-    ['dev', "Then today's lesson is power. In India the voltage goes up and down, and power cuts are common. Electronics hate that. And Riya, before you open PC 22, what do we do?"],
-    ['riya', 'Unplug it, and touch metal first. Rule one and rule two.'],
+    ['you', "The lab has one UPS, but it only powers Ms. Fernandes' PC. All the others go straight into the wall."],
+    ['dev', "Then today's lesson is power. In India the voltage goes up and down, and power cuts are common. Electronics hate that. And before you open PC 22, what do we do?"],
+    ['you', 'Unplug it, and touch metal first. Rule one and rule two.'],
     ['dev', "Good. And the power supply inside stays closed, even though it smells burnt. We replace it. We never open it."]
   ],
   learn: [
@@ -648,6 +661,13 @@ BBB.chapters.push({
       ['A check-up of the roof and drains every year', 'Regular maintenance']
     ]
   },
+  diagram: { flow: [
+    { t: 'Wall socket', s: 'voltage can jump or drop' },
+    { t: 'Surge protector', s: 'blocks sudden spikes' },
+    { t: 'Stabiliser or UPS', s: 'evens out the voltage; a UPS also covers power cuts' },
+    { t: 'Power supply', s: 'turns it into steady low voltages' },
+    { t: 'PC parts', s: 'safe, steady power' }
+  ] },
   words: [
     ['Power surge', 'A sudden, short jump in voltage, for example from lightning.'],
     ['Brownout', 'A dip in voltage that lasts a while. Also called a sag.'],
@@ -673,13 +693,13 @@ BBB.chapters.push({
   topic: 'Virtual machines and cloud computing',
   minutes: 8,
   story: [
-    ['n', "Riya wants to learn Linux. But Ms. Fernandes has one firm rule: <em>nobody experiments on the exam PCs.</em>"],
-    ['riya', 'Uncle Dev, how can I practise Linux without breaking a lab PC, or my own?'],
+    ['n', "You want to learn Linux. But Ms. Fernandes has one firm rule: <em>nobody experiments on the exam PCs.</em>"],
+    ['you', 'Uncle Dev, how can I practise Linux without breaking a lab PC, or my own?'],
     ['dev', 'Build a computer inside your computer.'],
-    ['riya', 'That sounds like a riddle.'],
+    ['you', 'That sounds like a riddle.'],
     ['dev', "It's called a virtual machine. A program pretends to be a whole PC: a pretend CPU, pretend RAM, a pretend disk. You install Linux inside it. If you break it, you click once and it's back to how it was."],
-    ['n', 'That evening, a Linux desktop opens in a window on Riya\'s Windows PC. She takes a snapshot, then breaks the network settings on purpose to see what happens. One click on the snapshot, and everything is back in seconds.'],
-    ['riya', 'This is amazing. Do big companies run their servers like this too?'],
+    ['n', 'That evening, a Linux desktop opens in a window on your Windows PC. You take a snapshot, then break the network settings on purpose to see what happens. One click on the snapshot, and everything is back in seconds.'],
+    ['you', 'This is amazing. Do big companies run their servers like this too?'],
     ['dev', "Most of the internet runs on virtual machines, in giant buildings you can rent by the hour. That's what people call the cloud."]
   ],
   learn: [
@@ -760,7 +780,7 @@ BBB.chapters.push({
     ['Rack', 'A tall metal cabinet that holds many servers in a data centre.']
   ],
   quiz: [
-    { q: 'Riya runs Linux inside a window on her Windows PC. Here, Linux is the...', a: ['Host', 'Guest', 'Hypervisor', 'Rack'], c: 1, why: 'The real computer is the host. The OS inside the virtual machine is the guest.' },
+    { q: 'You run Linux inside a window on your Windows PC. Here, Linux is the...', a: ['Host', 'Guest', 'Hypervisor', 'Rack'], c: 1, why: 'The real computer is the host. The OS inside the virtual machine is the guest.' },
     { q: 'Which of these is a Type 2 hypervisor that runs as an app?', a: ['VMware ESXi', 'KVM', 'Oracle VirtualBox', 'A UPS'], c: 2, why: 'VirtualBox runs as an ordinary app inside Windows, macOS or Linux.' },
     { q: 'Gmail is an example of...', a: ['SaaS', 'IaaS', 'A Type 1 hypervisor', 'A container'], c: 0, why: 'It is finished software you use over the internet: Software as a Service.' },
     { q: 'A VM won\'t start and says virtualisation is disabled. What should you check?', a: ['The monitor cable', 'The printer', 'The Wi-Fi password', 'That VT-x or AMD-V is switched on in the BIOS/UEFI'], c: 3, why: 'The CPU\'s virtualisation feature must be enabled in the firmware settings.' }
@@ -773,14 +793,14 @@ BBB.chapters.push({
   topic: 'Working in IT support',
   minutes: 8,
   story: [
-    ['n', "Two days before exams, teachers stop Riya in every corridor. \"My projector!\" \"My password!\" \"The internet is slow!\" Riya tries to remember everything, and forgets half of it."],
-    ['riya', "Uncle Dev, I fixed six things today, but I've forgotten who asked for what, and two teachers are cross with me."],
+    ['n', "Two days before exams, teachers stop you in every corridor. \"My projector!\" \"My password!\" \"The internet is slow!\" You try to remember everything, and forget half of it."],
+    ['you', "Uncle Dev, I fixed six things today, but I've forgotten who asked for what, and two teachers are cross with me."],
     ['dev', "You need what every IT team uses: tickets. Every problem gets written down: who, what, when, and how urgent. Then nothing gets lost, and the most important problems go first."],
-    ['riya', 'But how do I decide what is most important?'],
+    ['you', 'But how do I decide what is most important?'],
     ['dev', 'Ask two questions. How many people does it affect? And how soon does it hurt? A dead projector in the exam hall beats a slow laptop in the staff room.'],
-    ['n', 'Riya and Ms. Fernandes make a simple ticket sheet. By Friday, every ticket is closed.'],
-    ['n', "On the first day of exams, all 30 PCs start in under a minute and nobody's work is lost. At assembly, the principal calls Riya up on stage and thanks \"our student IT engineer\". That evening Arjun video-calls, clapping."],
-    ['arjun', 'Doctor Riya, Detective Riya, and now Engineer Riya. What next?']
+    ['n', 'You and Ms. Fernandes make a simple ticket sheet. By Friday, every ticket is closed.'],
+    ['n', "On the first day of exams, all 30 PCs start in under a minute and nobody's work is lost. At assembly, the principal calls you up on stage to thank \"our student IT engineer\". That evening Arjun video-calls, clapping."],
+    ['arjun', 'First a doctor, then a detective, and now an engineer. What next?']
   ],
   learn: [
     { h: 'Tickets' },

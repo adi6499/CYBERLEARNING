@@ -331,7 +331,7 @@ BBB.toys = (function () {
       stage.innerHTML =
         '<div class="pk-step"><h4>1. Cut into packets</h4><div class="pkts">' +
           packets.map(function (p) { return card({ n: p.n, of: p.of, text: p.text }); }).join('') + '</div>' +
-          '<p class="muted small">Each packet gets a header: from Riya (192.168.1.7) to Arjun, plus its number.</p></div>' +
+          '<p class="muted small">Each packet gets a header: from you (192.168.1.7) to Arjun, plus its number.</p></div>' +
         '<div class="pk-step"><h4>2. Arriving at Arjun\'s laptop</h4><div class="pkts pk-arrive"></div><p class="toy-msg pk-note"></p></div>' +
         '<div class="pk-step pk-final" hidden><h4>3. Put back in order</h4><div class="pkts pk-sorted"></div>' +
           '<div class="pk-bubble"><span class="avatar arjun" aria-hidden="true">A</span><p class="pk-msg"></p></div></div>';
@@ -364,7 +364,7 @@ BBB.toys = (function () {
       if (lostIndex >= 0) {
         later(el, function () {
           note.className = 'toy-msg pk-note bad';
-          note.textContent = 'Packet ' + (lostIndex + 1) + ' is missing! Arjun\'s laptop asks Riya\'s PC to send it again...';
+          note.textContent = 'Packet ' + (lostIndex + 1) + ' is missing! Arjun\'s laptop asks your PC to send it again...';
         }, t);
         t += 1200;
         later(el, function () {
@@ -484,7 +484,7 @@ BBB.toys = (function () {
       '<div class="term" role="region" aria-label="Practice command prompt">' +
         '<div class="term-bar"><span></span><span></span><span></span><em>Command Prompt (practice)</em></div>' +
         '<pre class="term-out" aria-live="polite"></pre>' +
-        '<form class="term-line" autocomplete="off"><label class="term-prompt" for="termIn">C:\\Users\\Riya&gt;</label>' +
+        '<form class="term-line" autocomplete="off"><label class="term-prompt" for="termIn">C:\\Users\\Student&gt;</label>' +
           '<input id="termIn" class="term-in" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Type a command"></form>' +
       '</div>' +
       '<div class="chips term-chips"></div>' +
@@ -629,7 +629,7 @@ BBB.toys = (function () {
 
     function run(line) {
       line = line.trim();
-      print('C:\\Users\\Riya>' + line, 'cmd');
+      print('C:\\Users\\Student>' + line, 'cmd');
       if (!line) return;
       history.push(line); hIndex = history.length;
       var parts = line.split(/\s+/);
@@ -650,7 +650,7 @@ BBB.toys = (function () {
         print('Practice Command Prompt. Everything on this network is working.', 'dim');
         print('Type a command and press Enter, or tap one of the buttons below.', 'dim');
       } else {
-        print('MYSTERY: Riya says "the internet is broken". Something IS wrong.', 'dim');
+        print('MYSTERY: "The internet is broken!" Something on this PC IS wrong.', 'dim');
         print('Run commands to collect clues, then choose your answer below.', 'dim');
       }
       print('');

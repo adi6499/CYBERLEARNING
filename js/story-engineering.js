@@ -1,6 +1,6 @@
 /* Byte by Byte — story content.
    Part 3: How it really works (computer engineering).
-   Riya builds a plant-watering machine for the school science fair, and learns how a chip thinks on the way.
+   You build a plant-watering machine for the school science fair, and learn how a chip thinks on the way.
    Same format as story-hardware.js. */
 window.BBB = window.BBB || {};
 BBB.chapters = BBB.chapters || [];
@@ -11,13 +11,13 @@ BBB.chapters.push({
   topic: 'Electricity, transistors and how chips are made',
   minutes: 7,
   story: [
-    ['n', 'Two weeks after the big game with Arjun, Riya\'s school announces a science fair. The theme is "Machines that help".'],
-    ['n', "Riya knows exactly what she wants to build. Grandpa loves the plants on his balcony, but he keeps forgetting to water them. Half the tulsi pot has already gone brown."],
-    ['riya', "Uncle Dev, I want to build a machine that waters Grandpa's plants by itself. Can a computer do that?"],
+    ['n', 'Two weeks after the big game with Arjun, your school announces a science fair. The theme is "Machines that help".'],
+    ['n', "You know exactly what you want to build. Grandpa loves the plants on his balcony, but he keeps forgetting to water them. Half the tulsi pot has already gone brown."],
+    ['you', "Uncle Dev, I want to build a machine that waters Grandpa's plants by itself. Can a computer do that?"],
     ['dev', "A very small one can. But if you want to build machines, let's start at the very bottom. Do you know what a computer chip is made of?"],
-    ['riya', 'Metal? Plastic?'],
+    ['you', 'Metal? Plastic?'],
     ['dev', 'Mostly silicon, and silicon comes from sand. Every chip is a city of tiny switches built into silicon. Billions of them.'],
-    ['riya', 'Sand that thinks? That sounds like magic.'],
+    ['you', 'Sand that thinks? That sounds like magic.'],
     ['dev', "It isn't magic. It's electricity and some very clever switches. Let's start with the electricity."]
   ],
   learn: [
@@ -103,13 +103,13 @@ BBB.chapters.push({
   topic: 'Logic gates and truth tables',
   minutes: 6,
   story: [
-    ['n', 'Riya has drawn her machine on paper: a sensor in the soil, a little pump, a pipe to the pot. Uncle Dev taps the drawing with his pen.'],
+    ['n', 'You have drawn your machine on paper: a sensor in the soil, a little pump, a pipe to the pot. Uncle Dev taps the drawing with his pen.'],
     ['dev', 'Your machine has to make a decision. When should the pump switch on?'],
-    ['riya', 'When the soil is dry.'],
+    ['you', 'When the soil is dry.'],
     ['dev', 'Always? Even when the water bucket is empty?'],
-    ['riya', "Oh. Then the pump would run dry and get damaged. So: when the soil is dry AND there's water in the bucket."],
+    ['you', "Oh. Then the pump would run dry and get damaged. So: when the soil is dry AND there's water in the bucket."],
     ['dev', "You just did logic. AND, OR, NOT. A chip makes every decision with tiny circuits called logic gates, and each gate is made of just a few transistors."],
-    ['riya', 'So a chip is just billions of tiny yes-or-no decisions?'],
+    ['you', 'So a chip is just billions of tiny yes-or-no decisions?'],
     ['dev', "Exactly. Let's meet the gates."]
   ],
   learn: [
@@ -135,7 +135,7 @@ BBB.chapters.push({
     ] } },
     { p: 'NOT has only one input: 0 becomes 1, and 1 becomes 0. XNOR is the opposite of XOR: 1 when both inputs match.' },
     { h: 'Joining gates together' },
-    { p: 'Gates can feed into other gates to make bigger decisions. Riya\'s pump rule could be: <code>(soil is dry AND bucket has water) AND NOT (it is raining)</code>. The output of one gate becomes an input of the next. Whole processors are built this way, from huge numbers of gates.' },
+    { p: 'Gates can feed into other gates to make bigger decisions. Your pump rule could be: <code>(soil is dry AND bucket has water) AND NOT (it is raining)</code>. The output of one gate becomes an input of the next. Whole processors are built this way, from huge numbers of gates.' },
     { h: 'Gates are made of transistors' },
     { ul: [
       'A NOT gate can be made from just two transistors.',
@@ -180,14 +180,14 @@ BBB.chapters.push({
   topic: 'Adding with gates, and memory made from gates',
   minutes: 7,
   story: [
-    ['riya', 'Okay, gates make decisions. But computers do maths too. How can AND and OR possibly add 7 and 5?'],
+    ['you', 'Okay, gates make decisions. But computers do maths too. How can AND and OR possibly add 7 and 5?'],
     ['dev', "Let's add in binary on paper first. What's 1 plus 1?"],
-    ['riya', "Two... but there's no 2 in binary. So it's 10?"],
+    ['you', "Two... but there's no 2 in binary. So it's 10?"],
     ['dev', 'Right. Write 0, carry 1. Just like 9 plus 1 in normal numbers: write 0, carry 1. Now look at the two answers. The digit you write is 1 only when the two inputs are different...'],
-    ['riya', "That's XOR! And the carry is 1 only when both inputs are 1. That's AND!"],
+    ['you', "That's XOR! And the carry is 1 only when both inputs are 1. That's AND!"],
     ['dev', 'You just invented a half adder. Engineers worked it out exactly the same way.'],
-    ['n', 'Riya grins. Then she frowns.'],
-    ['riya', 'But my machine also has to remember things, like when it last watered the plants. Can gates remember?'],
+    ['n', 'You grin. Then you frown.'],
+    ['you', 'But my machine also has to remember things, like when it last watered the plants. Can gates remember?'],
     ['dev', "They can, if you loop them back into each other. Let's see how."]
   ],
   learn: [
@@ -265,11 +265,11 @@ BBB.chapters.push({
   topic: 'How a processor is organised',
   minutes: 8,
   story: [
-    ['n', 'On Sunday, Uncle Dev opens his laptop on the dining table and shows Riya a photo of a CPU chip, magnified so much that it looks like a city seen from an aeroplane.'],
+    ['n', 'On Sunday, Uncle Dev opens his laptop on the dining table and shows you a photo of a CPU chip, magnified so much that it looks like a city seen from an aeroplane.'],
     ['dev', 'Remember fetch, decode, execute from Part 1? Today we walk inside the chip and meet the departments that do it.'],
-    ['riya', 'There are departments inside a chip?'],
+    ['you', 'There are departments inside a chip?'],
     ['dev', "In a way. A manager who reads each instruction. A calculator. Tiny pockets for the numbers being used right now. A small shelf of things it will probably need next. And roads connecting all of them."],
-    ['riya', "And the little chip for my plant machine has all of this too?"],
+    ['you', "And the little chip for my plant machine has all of this too?"],
     ['dev', 'A smaller, simpler version. But the same plan. Once you know this map, you can understand any processor in the world.']
   ],
   learn: [
@@ -367,24 +367,24 @@ BBB.chapters.push({
   topic: 'How code becomes something a machine can do',
   minutes: 7,
   story: [
-    ['n', 'The parts have arrived: a small blue circuit board, a soil sensor, a tiny water pump and a bag of coloured wires. Riya lines them up on her desk like a surgeon.'],
-    ['riya', "The machine is ready. But how do I tell it what to do? I can't write in ones and zeros!"],
+    ['n', 'The parts have arrived: a small blue circuit board, a soil sensor, a tiny water pump and a bag of coloured wires. You line them up on your desk like a surgeon.'],
+    ['you', "The machine is ready. But how do I tell it what to do? I can't write in ones and zeros!"],
     ['dev', 'Nobody does that any more. You write in a programming language: words and symbols that people can read. Then another program translates it into the chip\'s own language.'],
-    ['riya', 'Like a translation app, but for chips?'],
+    ['you', 'Like a translation app, but for chips?'],
     ['dev', "Something like that. Except it has to be perfect. One wrong letter and it refuses to work."],
-    ['n', 'That evening Riya types her first program: twelve short lines. She presses Upload. A red error message appears. She has typed <code>dely</code> instead of <code>delay</code>.'],
-    ['riya', 'My first bug!'],
+    ['n', 'That evening you type your first program: twelve short lines. You press Upload. A red error message appears. You have typed <code>dely</code> instead of <code>delay</code>.'],
+    ['you', 'My first bug!'],
     ['dev', 'Welcome to programming. Every programmer in the world has met thousands of them.']
   ],
   learn: [
     { h: 'Programs and algorithms' },
     { p: 'A <b>program</b> is a list of instructions for a computer. The plan behind it, a step-by-step method for solving a problem, is called an <b>algorithm</b>. A recipe is an algorithm for cooking.' },
-    { p: 'Riya\'s algorithm: read the soil sensor. If the soil is dry, run the pump for 3 seconds. Wait a while. Repeat forever.' },
+    { p: 'Your algorithm: read the soil sensor. If the soil is dry, run the pump for 3 seconds. Wait a while. Repeat forever.' },
     { h: 'Programming languages' },
     { p: 'People write programs in <b>programming languages</b>. The text they type is called <b>source code</b>. There are hundreds of languages, each good at different things:' },
     { table: { head: ['Language', 'Often used for'], rows: [
       ['Python', 'Beginners, data, AI and automating boring jobs'],
-      ['C and C++', 'Operating systems, games, and small chips like Riya\'s (Arduino code is based on C++)'],
+      ['C and C++', 'Operating systems, games, and small chips like yours (Arduino code is based on C++)'],
       ['Java', 'Large business systems and many Android apps'],
       ['JavaScript', 'Websites, including this one'],
       ['Assembly', 'Talking almost directly to the CPU, one simple instruction per line']
@@ -407,13 +407,13 @@ BBB.chapters.push({
       '<b>Firmware</b>: software stored on a chip inside the hardware itself, like the BIOS/UEFI, or the code inside an SSD, a printer or a router. A <b>firmware update</b> replaces it with a newer version. Never switch the power off during one.',
       '<b>Hardware</b>: the transistors at the bottom of it all.'
     ] },
-    { p: 'Small chips like Riya\'s usually have no operating system at all. Her program runs straight on the hardware, and it is the only program there.' },
+    { p: 'Small chips like yours usually have no operating system at all. Your program runs straight on the hardware, and it is the only program there.' },
     { h: 'Bugs and debugging' },
     { ul: [
       'A <b>bug</b> is a mistake in a program.',
-      'A <b>syntax error</b> breaks the grammar of the language, like Riya\'s <code>dely</code>. The translator stops and refuses to continue.',
+      'A <b>syntax error</b> breaks the grammar of the language, like your <code>dely</code>. The translator stops and refuses to continue.',
       'A <b>logic error</b> runs without complaint but does the wrong thing, like watering when the soil is already wet. These are harder to find.',
-      '<b>Debugging</b> means finding and fixing bugs: read the error message carefully, test small pieces at a time, print out values to see what is really happening, and change one thing at a time, just like Doctor Riya in Part 1.'
+      '<b>Debugging</b> means finding and fixing bugs: read the error message carefully, test small pieces at a time, print out values to see what is really happening, and change one thing at a time, just like you did as a computer doctor in Part 1.'
     ] },
     { tip: 'The word "bug" is older than computers, but there is a famous 1947 logbook from the Harvard Mark II computer with a real moth taped into it. It had been found stuck in one of the machine\'s relays.' }
   ],
@@ -430,12 +430,12 @@ BBB.chapters.push({
     ]
   },
   diagram: { stack: [
-    { t: 'Apps', s: 'games, browsers, Riya\'s program' },
+    { t: 'Apps', s: 'games, browsers, your program' },
     { t: 'Operating system kernel', s: 'shares the CPU and memory between apps' },
     { t: 'Drivers', s: 'translators for each device' },
     { t: 'Firmware', s: 'code stored inside the hardware itself' },
     { t: 'Hardware', s: 'CPU, memory and devices: transistors at the bottom' }
-  ], note: 'Each layer uses the one below it. Riya\'s little chip skips the middle layers: her program runs straight on the hardware.' },
+  ], note: 'Each layer uses the one below it. Your little chip skips the middle layers: your program runs straight on the hardware.' },
   words: [
     ['Algorithm', 'A step-by-step method for solving a problem, like a recipe.'],
     ['Source code', 'The instructions people write in a programming language.'],
@@ -450,7 +450,7 @@ BBB.chapters.push({
   quiz: [
     { q: 'A step-by-step plan for solving a problem is called...', a: ['A driver', 'An algorithm', 'A compiler', 'A bus'], c: 1, why: 'An algorithm is the plan. The program is that plan written in a programming language.' },
     { q: 'What does a compiler do?', a: ['Cools the CPU', 'Finds Wi-Fi networks', 'Translates source code into machine code before the program runs', 'Stores files'], c: 2, why: 'A compiler translates the whole program in advance, so the CPU can run it directly.' },
-    { q: 'Riya typed "dely" instead of "delay". What kind of mistake is that?', a: ['A syntax error', 'A logic error', 'A hardware fault', 'A cache miss'], c: 0, why: 'It breaks the grammar of the language, so the translator stops. That is a syntax error.' },
+    { q: 'You typed "dely" instead of "delay". What kind of mistake is that?', a: ['A syntax error', 'A logic error', 'A hardware fault', 'A cache miss'], c: 0, why: 'It breaks the grammar of the language, so the translator stops. That is a syntax error.' },
     { q: 'Code stored on a chip inside a device, like the BIOS, is called...', a: ['An app', 'Source code', 'Assembly', 'Firmware'], c: 3, why: 'Firmware lives inside the hardware itself and is the first software to run.' }
   ]
 });
@@ -461,12 +461,12 @@ BBB.chapters.push({
   topic: 'Hexadecimal and other number systems',
   minutes: 6,
   story: [
-    ['n', 'Riya\'s program works. Now she wants a coloured light on the machine: green when the soil is fine, blue while it is watering. In the example code, colours are written as strange codes like <code>#00FF00</code>.'],
-    ['riya', 'Uncle Dev, what is this? Numbers with letters in them?'],
+    ['n', 'Your program works. Now you want a coloured light on the machine: green when the soil is fine, blue while it is watering. In the example code, colours are written as strange codes like <code>#00FF00</code>.'],
+    ['you', 'Uncle Dev, what is this? Numbers with letters in them?'],
     ['dev', "That's hexadecimal: counting in sixteens. You've already met it in MAC addresses and IPv6 addresses."],
-    ['riya', 'Why would anyone count in sixteens? We have ten fingers!'],
+    ['you', 'Why would anyone count in sixteens? We have ten fingers!'],
     ['dev', "Computers don't have fingers. They have bits. Binary is far too long for people to read, and ten doesn't fit neatly with bits. Sixteen fits perfectly: one hex digit is exactly four bits."],
-    ['riya', 'So hex is just a short way of writing binary?'],
+    ['you', 'So hex is just a short way of writing binary?'],
     ['dev', "That's all it is. A shorthand that people and computers can both live with."]
   ],
   learn: [
@@ -546,13 +546,13 @@ BBB.chapters.push({
   minutes: 8,
   story: [
     ['n', "The night before the science fair, the machine sits on Grandpa's balcony: a little blue board in a plastic box, a soil sensor pushed into the tulsi pot, a tiny pump in a bucket of water, and a small coloured light."],
-    ['riya', "Uncle Dev, is this board really a computer? It's smaller than my palm."],
+    ['you', "Uncle Dev, is this board really a computer? It's smaller than my palm."],
     ['dev', "It has a processor, memory, inputs and outputs, and it runs your program. So yes, it's a computer. Just a very focused one. It's called a microcontroller."],
-    ['riya', "Last week the pump wouldn't start when I wired it straight to the board."],
+    ['you', "Last week the pump wouldn't start when I wired it straight to the board."],
     ['dev', "Lucky for the board. Its pins can only give out a tiny current, and a pump needs far more. That's why we added the relay: the board flicks a small switch, and the relay switches the big current. The same idea as a transistor."],
-    ['n', 'At the science fair a crowd gathers. Riya pulls the sensor out of the wet soil and pushes it into a cup of dry sand. The light turns blue, the pump hums, and water trickles out of the pipe. People clap.'],
+    ['n', 'At the science fair a crowd gathers. You pull the sensor out of the wet soil and push it into a cup of dry sand. The light turns blue, the pump hums, and water trickles out of the pipe. People clap.'],
     ['grandpa', 'Now my plants have a better memory than I do!'],
-    ['n', 'Riya wins second prize. Better still, by the end of the month the tulsi plant is green again.']
+    ['n', 'You win second prize. Better still, by the end of the month the tulsi plant is green again.']
   ],
   learn: [
     { h: 'Embedded systems' },
@@ -587,12 +587,12 @@ BBB.chapters.push({
     ] },
     { warn: 'Water and electricity don\'t mix. Keep the board and battery in a box, away from the water, and use only low-voltage battery or USB power for projects like this. Never connect anything to mains electricity (230 V) yourself: that needs a trained electrician.' },
     { h: 'The Internet of Things (IoT)' },
-    { p: 'Give an embedded system Wi-Fi and it becomes part of the <b>Internet of Things</b>: smart plugs, video doorbells, fitness bands, smart electricity meters. Boards like the <b>ESP32</b> have Wi-Fi built in, so Riya\'s machine could one day send Grandpa\'s phone a message when the water bucket is empty.' },
+    { p: 'Give an embedded system Wi-Fi and it becomes part of the <b>Internet of Things</b>: smart plugs, video doorbells, fitness bands, smart electricity meters. Boards like the <b>ESP32</b> have Wi-Fi built in, so your machine could one day send Grandpa\'s phone a message when the water bucket is empty.' },
     { tip: 'Every IoT gadget is a real computer on your network. Change its default password and keep its firmware updated, just like your router.' }
   ],
   analogy: {
     title: 'Think of it like a gardener',
-    text: 'Riya\'s machine does exactly what a careful gardener does, just without ever forgetting.',
+    text: 'Your machine does exactly what a careful gardener does, just without ever forgetting.',
     map: [
       ['The gardener\'s fingers feeling the soil', 'Soil moisture sensor'],
       ['The gardener\'s brain deciding "too dry"', 'Microcontroller running the program'],
@@ -619,9 +619,9 @@ BBB.chapters.push({
     ['Internet of Things (IoT)', 'Everyday objects with small computers inside that connect to the internet.']
   ],
   quiz: [
-    { q: 'What is an embedded system?', a: ['A computer built inside another machine to do one job', 'A very large server', 'A kind of network cable', 'A video game'], c: 0, why: 'Embedded systems hide inside machines like washing machines, cars and Riya\'s plant waterer.' },
+    { q: 'What is an embedded system?', a: ['A computer built inside another machine to do one job', 'A very large server', 'A kind of network cable', 'A video game'], c: 0, why: 'Embedded systems hide inside machines like washing machines, cars and your plant waterer.' },
     { q: 'Which of these is an actuator?', a: ['A temperature sensor', 'A pump', 'A soil moisture sensor', 'A light sensor'], c: 1, why: 'Actuators make something happen. A pump moves water. The others only measure.' },
     { q: 'What does an ADC do?', a: ['Adds two digital numbers', 'Dims an LED', 'Turns an analog level, like soil wetness, into a number', 'Connects the board to the internet'], c: 2, why: 'An analog-to-digital converter turns a smooth level into a number the program can compare.' },
-    { q: 'Why did Riya need a relay for the pump?', a: ['To make the pump quieter', 'To connect to Wi-Fi', 'To store the program', "The board's pins can't supply enough current for a pump"], c: 3, why: 'The pin only gives a tiny current. The relay lets that small signal switch the bigger current the pump needs.' }
+    { q: 'Why did you need a relay for the pump?', a: ['To make the pump quieter', 'To connect to Wi-Fi', 'To store the program', "The board's pins can't supply enough current for a pump"], c: 3, why: 'The pin only gives a tiny current. The relay lets that small signal switch the bigger current the pump needs.' }
   ]
 });
