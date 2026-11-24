@@ -11,14 +11,20 @@ window.BBB = window.BBB || {};
 BBB.characters = {
   riya:  { name: 'Riya',      initial: 'R', role: '14, curious, and about to become the family computer doctor.' },
   dev:   { name: 'Uncle Dev', initial: 'D', role: 'Hardware and network engineer. Explains everything with everyday things.' },
-  arjun: { name: 'Arjun',     initial: 'A', role: "Riya's best friend. Just moved to Bengaluru, 800 km away." }
+  arjun: { name: 'Arjun',     initial: 'A', role: "Riya's best friend. Just moved to Bengaluru, 800 km away." },
+  grandpa: { name: 'Grandpa', initial: 'G', role: "Owner of the old grey computer. Brand new to smartphones, and a little too trusting of phone calls." }
 };
+
+/* The order the parts appear in. Each part's chapters live in their own story-*.js file. */
+BBB.trackOrder = ['hardware', 'networking', 'engineering', 'technician', 'netpro', 'cyber'];
 
 BBB.tracks = {
   hardware: {
     title: 'Inside the box',
     part: 'Part 1',
     label: 'Hardware',
+    icon: 'cpu',
+    mapRight: 'In a computer',
     blurb: "Riya finds Grandpa's old computer. It won't switch on. To fix it, she has to learn what every part inside does.",
     finish: "You now know what every part inside a computer does, how it wakes up, how to build one and how to fix one. That's the foundation of computer engineering."
   },
@@ -26,8 +32,46 @@ BBB.tracks = {
     title: 'Out into the world',
     part: 'Part 2',
     label: 'Networking',
+    icon: 'network',
+    mapRight: 'In a network',
     blurb: 'Riya wants to play a game with her best friend in another city. Follow her message all the way there, and back.',
     finish: "You followed one message from Riya's room to Arjun's screen: addresses, routers, cables, packets, DNS, protocols, security and troubleshooting. That's the whole map of networking."
+  },
+  engineering: {
+    title: 'How it really works',
+    part: 'Part 3',
+    label: 'Computer engineering',
+    icon: 'chip',
+    mapRight: 'In a computer',
+    blurb: 'The school science fair is coming and Riya wants to build a robot. First she has to find out how a chip really thinks: from grains of sand to tiny switches to a working machine.',
+    finish: 'You followed a computer all the way down: from sand and transistors, to logic gates, to adding and remembering, to the parts of a CPU, to the code that drives it, to a tiny computer you can build yourself. That is computer engineering.'
+  },
+  technician: {
+    title: "The technician's toolkit",
+    part: 'Part 4',
+    label: 'IT support',
+    icon: 'wrench',
+    mapRight: 'In a computer',
+    blurb: "Exams are coming and the school's computer lab is a mess: 30 slow, broken, junk-filled PCs. The lab teacher hands the job to Riya.",
+    finish: 'Storage, backups, everything you plug in, laptops and phones, the operating system, the command line, power and safety, virtual machines and the help desk: you now have the full toolkit of an IT support technician.'
+  },
+  netpro: {
+    title: 'The network engineer',
+    part: 'Part 5',
+    label: 'Advanced networking',
+    icon: 'router',
+    mapRight: 'In a network',
+    blurb: 'Riya and Arjun take on the school tech fest: 40 PCs, Wi-Fi for hundreds of visitors, and a gaming tournament that must not lag.',
+    finish: 'Topologies, cables, subnets, IPv6, switches, routing, network services, Wi-Fi design, VPNs and network tools: you can now plan, build and fix a real network.'
+  },
+  cyber: {
+    title: 'Cyber guardians',
+    part: 'Part 6',
+    label: 'Cybersecurity',
+    icon: 'shield',
+    mapRight: 'In cybersecurity',
+    blurb: "During the tech fest someone attacks the network, and a scammer calls Grandpa. Riya learns how attackers think, and how to stop them.",
+    finish: "You know how security works from the inside: the three promises, encryption, hashing, passwords, malware, scams, attacks, defences, privacy and ethical hacking. You're ready to be one of the guardians."
   }
 };
 

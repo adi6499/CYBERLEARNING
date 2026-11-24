@@ -417,7 +417,7 @@ BBB.chapters.push({
       ['The truck on the road', 'Link layer (Ethernet, Wi-Fi)']
     ]
   },
-  diagram: { stack: [
+  diagram: { layers: true, stack: [
     { t: 'Application', s: 'What to say. HTTP, HTTPS, DNS, email' },
     { t: 'Transport', s: 'How reliably, and to which app. TCP or UDP, port numbers' },
     { t: 'Internet', s: 'Which address, which route. IP addresses, routers' },
@@ -574,7 +574,12 @@ BBB.whatNext = {
     'Open an old PC (unplugged, with an adult) and name every part you can see.',
     'Run <code>ipconfig</code>, <code>ping</code> and <code>tracert</code> on your own computer.',
     'Draw a map of your home network: every device, the router, and how each one connects.',
-    'Find your router\'s settings page (usually <code>192.168.1.1</code> or <code>192.168.0.1</code>) with permission from whoever owns it, and look around without changing anything.'
+    'Find your router\'s settings page (usually <code>192.168.1.1</code> or <code>192.168.0.1</code>) with permission from whoever owns it, and look around without changing anything.',
+    'Install a free virtual machine program and run Linux inside it. Practise the terminal commands from Part 4 there, where nothing can break.',
+    'Build the tech fest network from Part 5 in Cisco Packet Tracer: switches, VLANs, subnets and a router.',
+    'Buy a cheap microcontroller kit and build Riya\'s plant-watering machine from Part 3.',
+    'Turn on two-factor authentication on every account you own, and move to a password manager.',
+    'Join a beginner Capture the Flag (CTF) competition: legal hacking puzzles, often run by schools and colleges.'
   ],
   learn: [
     ['Cisco Networking Academy', 'Free beginner courses on networking and security.', 'https://www.netacad.com'],
@@ -584,7 +589,10 @@ BBB.whatNext = {
   certificates: [
     ['CompTIA A+', 'Hardware, operating systems and troubleshooting. A common first IT certificate.'],
     ['CompTIA Network+', 'Networking fundamentals.'],
-    ['Cisco CCNA', 'Routing, switching and network administration.']
+    ['Cisco CCNA', 'Routing, switching and network administration.'],
+    ['CompTIA Security+', 'Security fundamentals. A common first cybersecurity certificate.'],
+    ['Cisco CyberOps Associate', 'Working in a security operations centre (SOC).'],
+    ['Cloud fundamentals (AWS, Azure or Google Cloud)', 'Entry-level certificates for how the big cloud providers work.']
   ],
-  jobs: ['IT support technician', 'Hardware engineer', 'Network administrator', 'Network engineer', 'Cybersecurity analyst', 'Data centre technician']
+  jobs: ['IT support technician', 'Hardware engineer', 'Embedded systems engineer', 'Chip design engineer', 'Network administrator', 'Network engineer', 'Cloud engineer', 'Data centre technician', 'SOC analyst', 'Penetration tester', 'Security engineer', 'Digital forensics analyst']
 };

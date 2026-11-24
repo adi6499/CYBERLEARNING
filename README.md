@@ -1,15 +1,25 @@
 # Byte by Byte
 
-A simple website that teaches computer hardware and networking to complete beginners, through a story.
+A simple website that teaches computers to complete beginners through one story: computer hardware, computer engineering, IT support, networking and cybersecurity.
 
-Riya finds her grandfather's old computer, learns what every part does, builds her own PC, and then follows one message all the way to her friend in another city.
+Riya finds her grandfather's old computer and fixes it, builds her own PC, follows a message across the country, builds a plant-watering machine for the science fair, fixes the school computer lab, wires the school tech fest network, and finally defends it from attackers.
 
-- **Part 1 · Inside the box (Hardware):** 8 chapters — what a computer is, binary, CPU, RAM and storage, motherboard/PSU/GPU/ports, booting, building a PC, troubleshooting.
-- **Part 2 · Out into the world (Networking):** 9 chapters — what a network is, IP and MAC addresses, routers and switches, cables and Wi-Fi, packets, DNS, protocols and layers, security, network troubleshooting.
+## What's inside: 53 chapters in 6 parts
 
-Every chapter has: the story → what's really happening → a picture → "think of it like…" → a hands-on activity (in most) → words to remember → a 3-question quick check.
+| Part | Topic | Chapters |
+|---|---|---|
+| 1 · Inside the box | Hardware: parts, binary, CPU, RAM and storage, motherboard/PSU/GPU/ports, booting, building a PC, troubleshooting | 8 |
+| 2 · Out into the world | Networking basics: networks, IP and MAC, routers and switches, cables and Wi-Fi, packets, DNS, protocols and layers, safety, troubleshooting | 9 |
+| 3 · How it really works | Computer engineering: transistors and chip making, logic gates, adders and memory, inside the CPU, code to machine code, hexadecimal, embedded systems | 7 |
+| 4 · The technician's toolkit | IT support: file systems, backups and RAID, peripherals, laptops and phones, the OS up close, the command line, power and safety, virtual machines and cloud, the help desk | 9 |
+| 5 · The network engineer | Advanced networking: topologies, making cables, subnetting, IPv6, switching and VLANs, routing and NAT, network services, Wi-Fi design, VPNs, network tools | 10 |
+| 6 · Cyber guardians | Cybersecurity: CIA triad, encryption, hashing, passwords and MFA, malware, social engineering and scams in India, network attacks, defences and incident response, privacy, ethical hacking and careers | 10 |
 
-Extras: word list with search, "where to go next" page, light/dark mode, three text sizes, read-aloud (uses the browser's built-in voice), progress saved in the browser only.
+Every chapter: the story → what's really happening → a picture → "think of it like…" → a hands-on activity (in many) → words to remember → a quick quiz.
+
+**17 hands-on activities:** binary switches, find the PC parts, PC build order, IP checker, packets, DNS lookup, practice Command Prompt with mystery mode, logic gates, hex and colour mixer, RAID, practice Linux terminal, wire an Ethernet cable, subnet calculator, Caesar cipher, SHA-256 fingerprint, password strength, firewall rules game.
+
+**Also:** final test (whole course or one part) with a printable certificate, searchable word list, "where to go next" page, light/dark mode, three text sizes, read-aloud, progress saved in the browser only.
 
 ## Open it
 
@@ -18,11 +28,14 @@ Extras: word list with search, "where to go next" page, light/dark mode, three t
 
 ## Edit the story
 
-All the words live in two files — no code knowledge needed beyond keeping the quotes and commas:
+All the words live in the `js/story-*.js` files, one per part. After editing, run:
 
-- `js/story-hardware.js` — characters, the two parts, and the 8 hardware chapters
-- `js/story-networking.js` — the 9 networking chapters and the "where to go next" page
+```
+node tools/check-content.mjs
+```
 
-Other files: `js/toys.js` (the activities), `js/app.js` (pages, quiz, progress), `css/style.css` (the look).
+It checks every chapter's shape (missing fields, broken quiz answers, unknown activities).
+
+Other files: `js/toys.js` and `js/toys-more.js` (the activities), `js/app.js` (pages, quiz, test, progress), `css/style.css` (the look).
 
 No libraries, no build step, no tracking, nothing sent anywhere.

@@ -1,22 +1,28 @@
-/* Byte by Byte — the app: pages, progress, quiz, read-aloud, theme and text size.
+/* Byte by Byte — the app: pages, progress, quiz, final test, read-aloud, theme and text size.
    No libraries, no build step. Works from a web server or by double-clicking index.html. */
 (function () {
   'use strict';
 
   var KEY = 'bbb:v1';
   var C = BBB.chapters, T = BBB.tracks, CH = BBB.characters;
-  var TRACK_IDS = ['hardware', 'networking'];
+  var TRACK_IDS = (BBB.trackOrder || Object.keys(T)).filter(function (t) {
+    return T[t] && C.some(function (c) { return c.track === t; });
+  });
   var main = document.getElementById('main');
   var byId = {};
   C.forEach(function (c) { byId[c.id] = c; });
 
   function inTrack(t) { return C.filter(function (c) { return c.track === t; }); }
+  function nextTrack(t) { return TRACK_IDS[TRACK_IDS.indexOf(t) + 1]; }
+  var NUM_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  function words(n) { return NUM_WORDS[n] || String(n); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   /* ---------- Saved progress (this browser only) ---------- */
   function load() {
     var s = {};
     try { s = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { s = {}; }
-    s.done = s.done || {}; s.seen = s.seen || {}; s.scores = s.scores || {};
+    s.done = s.done || {}; s.seen = s.seen || {}; s.scores = s.scores || {}; s.tests = s.tests || {};
     return s;
   }
   var state = load();
@@ -29,11 +35,11 @@
     });
   }
   function strip(html) { var d = document.createElement('div'); d.innerHTML = html; return d.textContent || ''; }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
   var ICONS = {
     arrowRight: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
     arrowLeft: '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
-    arrowDown: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
     chevronRight: '<path d="m9 18 6-6-6-6"/>',
     check: '<path d="M20 6 9 17l-5-5"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
@@ -53,17 +59,26 @@
     repeat: '<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
     cpu: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
     network: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>',
+    chip: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M11 9h4a2 2 0 0 0 2-2V3"/><circle cx="9" cy="9" r="2"/><path d="M7 21v-4a2 2 0 0 1 2-2h4"/><circle cx="15" cy="15" r="2"/>',
+    wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    router: '<rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6.01 18H6"/><path d="M10.01 18H10"/><path d="M15 10v4"/><path d="M17.84 7.17a4 4 0 0 0-5.66 0"/><path d="M20.66 4.34a8 8 0 0 0-11.31 0"/>',
+    shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+    award: '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+    printer: '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
     flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
     external: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
   };
   function ic(name) {
     return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
   }
+  function trackIcon(t) { return ic(T[t].icon || 'book'); }
 
   function bar(pct, label) {
     return '<div class="bar" role="progressbar" aria-label="' + esc(label) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '"><i style="width:' + pct + '%"></i></div>';
   }
   function countDone(list) { return list.filter(function (c) { return state.done[c.id]; }).length; }
+  function minutesOf(list) { return list.reduce(function (a, c) { return a + c.minutes; }, 0); }
+  function hours(mins) { return mins < 90 ? mins + ' minutes' : 'about ' + Math.round(mins / 60) + ' hours'; }
 
   function continueTarget() {
     if (state.last && byId[state.last] && !state.done[state.last]) return byId[state.last];
@@ -82,24 +97,24 @@
     var how = [
       ['story', 'Read the story', 'A short scene with Riya and Uncle Dev.'],
       ['bulb', 'See what\'s really happening', 'The same idea, explained simply.'],
-      ['pointer', 'Try it yourself', 'Flip switches, send packets, fix a network.'],
-      ['quiz', 'Check yourself', 'Three quick questions. No pressure.']
+      ['pointer', 'Try it yourself', 'Flip switches, wire a cable, crack a code.'],
+      ['quiz', 'Check yourself', 'A few quick questions. No pressure.']
     ];
 
     return '' +
       '<section class="wrap hero">' +
         '<p class="eyebrow">A story-based course for complete beginners</p>' +
         '<h1>Learn how computers and networks really work.</h1>' +
-        '<p class="lead">Follow Riya as she brings her grandfather\'s old computer back to life, builds her own, and sends a message all the way across the country. ' + total + ' short chapters. No experience needed.</p>' +
+        '<p class="lead">Follow Riya from fixing her grandfather\'s old computer, all the way to building networks and stopping hackers. ' + total + ' short chapters in ' + words(TRACK_IDS.length) + ' parts. No experience needed.</p>' +
         '<div class="actions">' +
           '<a class="btn btn-primary" href="#/chapter/' + next.id + '">' + cta + ' ' + ic('arrowRight') + '</a>' +
-          '<a class="btn btn-secondary" href="#/part/hardware">See all chapters</a>' +
+          '<a class="btn btn-secondary" href="#/chapters">See all chapters</a>' +
         '</div>' +
         (started ? '<div class="overall">' + bar(Math.round(doneN / total * 100), 'Your progress') + '<span>' + doneN + ' of ' + total + ' chapters done</span></div>' : '') +
       '</section>' +
 
       '<section class="wrap block">' +
-        '<h2 class="section-title">Two parts, one story</h2>' +
+        '<h2 class="section-title">' + cap(words(TRACK_IDS.length)) + ' parts, one story</h2>' +
         '<div class="parts">' + TRACK_IDS.map(partCard).join('') + '</div>' +
       '</section>' +
 
@@ -118,47 +133,74 @@
         }).join('') + '</ol>' +
       '</section>' +
 
-      '<section class="wrap block">' +
+      '<section class="wrap block stack-links">' +
+        '<a class="card row-link" href="#/test"><span class="row-ic">' + ic('award') + '</span><span><strong>Final test and certificate</strong><span>Test yourself on the whole course or one part. Pass to print your certificate.</span></span>' + ic('chevronRight') + '</a>' +
         '<a class="card row-link" href="#/next"><span class="row-ic">' + ic('flag') + '</span><span><strong>Finished the story?</strong><span>Where to go next: free courses, certificates and jobs.</span></span>' + ic('chevronRight') + '</a>' +
       '</section>';
   }
 
   function partCard(t) {
     var list = inTrack(t), d = countDone(list);
-    var mins = list.reduce(function (a, c) { return a + c.minutes; }, 0);
-    return '<a class="part card ' + t + '" href="#/part/' + t + '">' +
-      '<span class="part-ic">' + ic(t === 'hardware' ? 'cpu' : 'network') + '</span>' +
+    return '<a class="part card t-' + t + '" href="#/part/' + t + '">' +
+      '<span class="part-ic">' + trackIcon(t) + '</span>' +
       '<span class="kicker">' + T[t].part + ' · ' + T[t].label + '</span>' +
       '<h3>' + T[t].title + '</h3>' +
       '<p>' + T[t].blurb + '</p>' +
-      '<span class="meta">' + list.length + ' chapters · about ' + mins + ' minutes</span>' +
+      '<span class="meta">' + list.length + ' chapters · ' + hours(minutesOf(list)) + '</span>' +
       bar(Math.round(d / list.length * 100), T[t].label + ' progress') +
       '<span class="meta">' + (d ? d + ' of ' + list.length + ' done' : 'Not started yet') + '</span>' +
     '</a>';
   }
 
+  /* ---------- All chapters ---------- */
+  function chapterRows(list) {
+    return '<ol class="chapter-list">' + list.map(function (c, i) {
+      var done = state.done[c.id];
+      return '<li><a class="ch-row card ' + (done ? 'is-done' : '') + '" href="#/chapter/' + c.id + '">' +
+        '<span class="ch-num" aria-hidden="true">' + (done ? ic('check') : (i + 1)) + '</span>' +
+        '<span class="ch-text"><strong>' + c.title + '</strong><span>' + c.topic + ' · ' + c.minutes + ' min' + (done ? ' · <em>Done</em>' : '') + '</span></span>' +
+        ic('chevronRight') + '</a></li>';
+    }).join('') + '</ol>';
+  }
+
+  function viewChapters() {
+    var doneN = countDone(C);
+    return '' +
+      '<section class="read page-head">' +
+        '<p class="eyebrow">All chapters</p>' +
+        '<h1>The whole course</h1>' +
+        '<p class="lead">' + C.length + ' chapters in ' + words(TRACK_IDS.length) + ' parts, ' + hours(minutesOf(C)) + ' of reading. Start at the top, or jump to any part.</p>' +
+        '<div class="overall">' + bar(Math.round(doneN / C.length * 100), 'Your progress') + '<span>' + doneN + ' of ' + C.length + ' chapters done</span></div>' +
+        '<nav class="jump" aria-label="Jump to a part">' + TRACK_IDS.map(function (t) {
+          return '<a class="tag t-' + t + '" href="#/part/' + t + '">' + T[t].part + ' · ' + T[t].label + '</a>';
+        }).join('') + '</nav>' +
+      '</section>' +
+      TRACK_IDS.map(function (t) {
+        var list = inTrack(t);
+        return '<section class="read sec t-' + t + '">' +
+          '<h2 class="sec-title">' + trackIcon(t) + T[t].part + ': ' + T[t].title + '</h2>' +
+          '<p class="sec-sub">' + T[t].label + ' · ' + list.length + ' chapters · ' + countDone(list) + ' done</p>' +
+          chapterRows(list) + '</section>';
+      }).join('');
+  }
+
   /* ---------- A part (list of chapters) ---------- */
   function viewPart(t) {
-    if (!T[t]) return null;
+    if (!T[t] || TRACK_IDS.indexOf(t) === -1) return null;
     var list = inTrack(t), d = countDone(list);
-    var other = t === 'hardware' ? 'networking' : 'hardware';
+    var nt = nextTrack(t);
+    var nextLink = nt
+      ? '<a class="card row-link" href="#/part/' + nt + '"><span class="row-ic t-' + nt + '">' + trackIcon(nt) + '</span><span><strong>Next: ' + T[nt].part + ', ' + T[nt].title + '</strong><span>' + T[nt].label + '</span></span>' + ic('chevronRight') + '</a>'
+      : '<a class="card row-link" href="#/test"><span class="row-ic">' + ic('award') + '</span><span><strong>Final test and certificate</strong><span>You\'ve reached the last part. Test yourself on everything.</span></span>' + ic('chevronRight') + '</a>';
     return '' +
-      '<section class="read page-head ' + t + '">' +
+      '<section class="read page-head t-' + t + '">' +
         '<p class="eyebrow">' + T[t].part + ' · ' + T[t].label + '</p>' +
         '<h1>' + T[t].title + '</h1>' +
         '<p class="lead">' + T[t].blurb + '</p>' +
         '<div class="overall">' + bar(Math.round(d / list.length * 100), T[t].label + ' progress') + '<span>' + d + ' of ' + list.length + ' chapters done</span></div>' +
       '</section>' +
-      '<section class="read">' +
-        '<ol class="chapter-list">' + list.map(function (c, i) {
-          var done = state.done[c.id];
-          return '<li><a class="ch-row card ' + (done ? 'is-done' : '') + '" href="#/chapter/' + c.id + '">' +
-            '<span class="ch-num" aria-hidden="true">' + (done ? ic('check') : (i + 1)) + '</span>' +
-            '<span class="ch-text"><strong>' + c.title + '</strong><span>' + c.topic + ' · ' + c.minutes + ' min' + (done ? ' · <em>Done</em>' : '') + '</span></span>' +
-            ic('chevronRight') + '</a></li>';
-        }).join('') + '</ol>' +
-        '<a class="card row-link other-part" href="#/part/' + other + '"><span class="row-ic">' + ic(other === 'hardware' ? 'cpu' : 'network') + '</span>' +
-          '<span><strong>' + T[other].part + ': ' + T[other].title + '</strong><span>' + T[other].label + '</span></span>' + ic('chevronRight') + '</a>' +
+      '<section class="read t-' + t + '">' + chapterRows(list) + '<div class="stack-links">' + nextLink +
+        '<a class="card row-link" href="#/chapters"><span class="row-ic">' + ic('book') + '</span><span><strong>All parts</strong><span>See every chapter in the course</span></span>' + ic('chevronRight') + '</a></div>' +
       '</section>';
   }
 
@@ -166,7 +208,7 @@
   function lineHTML(l, i) {
     var who = l[0], text = l[1];
     if (who === 'n') return '<p class="line narr" style="--i:' + i + '">' + text + '</p>';
-    var p = CH[who];
+    var p = CH[who] || { name: who, initial: who.charAt(0).toUpperCase() };
     return '<div class="line say ' + who + '" style="--i:' + i + '">' +
       '<span class="avatar ' + who + '" aria-hidden="true">' + p.initial + '</span>' +
       '<div class="bubble"><span class="who">' + p.name + '</span><p>' + text + '</p></div></div>';
@@ -185,7 +227,7 @@
         '<thead><tr>' + head.map(function (h) { return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead>' +
         '<tbody>' + b.table.rows.map(function (r) {
           return '<tr>' + r.map(function (cell, j) {
-            var lab = strip(head[j]);
+            var lab = strip(head[j] || '');
             return j === 0
               ? '<th scope="row"' + (lab ? ' data-label="' + esc(lab) + '"' : '') + '>' + cell + '</th>'
               : '<td data-label="' + esc(lab) + '">' + cell + '</td>';
@@ -205,11 +247,18 @@
       (d.loop ? arrow + '<div class="node again">' + ic('repeat') + '<strong>Repeat</strong></div>' : '') + '</div>';
     }
     if (d.stack) {
+      var n = d.stack.length;
       html = '<div class="stack">' + d.stack.map(function (s, i) {
-        return '<div class="layer" style="--i:' + i + '"><span class="layer-n">' + (d.stack.length - i) + '</span><div><strong>' + s.t + '</strong><span>' + s.s + '</span></div></div>';
+        return '<div class="layer" style="--i:' + i + '"><span class="layer-n">' + (d.layers ? n - i : i + 1) + '</span><div><strong>' + s.t + '</strong><span>' + s.s + '</span></div></div>';
       }).join('') + '</div>';
     }
     return html + (d.note ? '<p class="diagram-note">' + d.note + '</p>' : '');
+  }
+
+  function optionButtons(q, order) {
+    return '<div class="opts">' + order.map(function (oi) {
+      return '<button type="button" class="opt" data-o="' + oi + '"><span class="opt-mark" aria-hidden="true"></span><span>' + q.a[oi] + '</span></button>';
+    }).join('') + '</div>';
   }
 
   function quizHTML(c) {
@@ -219,9 +268,7 @@
       '<p class="sec-sub">' + c.quiz.length + ' questions. Pick an answer to see if you\'re right.' + (best != null ? ' Your best so far: ' + best + ' of ' + c.quiz.length + '.' : '') + '</p>' +
       '<div class="qs">' + c.quiz.map(function (q, qi) {
         return '<fieldset class="q card" data-q="' + qi + '"><legend><span class="q-num">' + (qi + 1) + '</span><span>' + q.q + '</span></legend>' +
-          '<div class="opts">' + q.a.map(function (o, oi) {
-            return '<button type="button" class="opt" data-o="' + oi + '"><span class="opt-mark" aria-hidden="true"></span><span>' + o + '</span></button>';
-          }).join('') + '</div><p class="why" hidden></p></fieldset>';
+          optionButtons(q, q.a.map(function (_, i) { return i; })) + '<p class="why" hidden></p></fieldset>';
       }).join('') + '</div>' +
       '<div class="quiz-result card" hidden aria-live="polite"></div>' +
     '</section>';
@@ -232,17 +279,16 @@
     if (!c) return null;
     var list = inTrack(c.track), n = list.indexOf(c);
     var prev = list[n - 1], next = list[n + 1];
-    var isNet = c.track === 'networking';
     var canSpeak = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 
     var dots = '<div class="dots" aria-label="Chapters in this part">' + list.map(function (x, i) {
       var cls = (x === c ? 'current ' : '') + (state.done[x.id] ? 'done' : '');
-      return '<a href="#/chapter/' + x.id + '" class="' + cls + '" aria-label="Chapter ' + (i + 1) + ': ' + esc(x.title) + (state.done[x.id] ? ' (done)' : '') + '"' + (x === c ? ' aria-current="page"' : '') + '></a>';
+      return '<a href="#/chapter/' + x.id + '" class="' + cls + '" aria-label="Chapter ' + (i + 1) + ': ' + esc(strip(x.title)) + (state.done[x.id] ? ' (done)' : '') + '"' + (x === c ? ' aria-current="page"' : '') + '></a>';
     }).join('') + '</div>';
 
     var a = c.analogy;
     var html = '' +
-      '<article class="chapter ' + c.track + '">' +
+      '<article class="chapter t-' + c.track + '">' +
       '<header class="read ch-head">' +
         '<a class="crumb" href="#/part/' + c.track + '">' + ic('arrowLeft') + T[c.track].part + ' · ' + T[c.track].label + '</a>' +
         dots +
@@ -269,7 +315,7 @@
       (a ? '<section class="read sec">' +
         '<h2 class="sec-title">' + ic('link') + a.title + '</h2>' +
         '<p class="sec-sub">' + a.text + '</p>' +
-        '<div class="map card"><div class="map-row map-head"><span>In everyday life</span><span></span><span>' + (isNet ? 'In a network' : 'In a computer') + '</span></div>' +
+        '<div class="map card"><div class="map-row map-head"><span>In everyday life</span><span></span><span>' + (T[c.track].mapRight || 'In a computer') + '</span></div>' +
           a.map.map(function (r) {
             return '<div class="map-row"><span>' + r[0] + '</span><span class="map-arrow" aria-hidden="true">' + ic('arrowRight') + '</span><span><strong>' + r[1] + '</strong></span></div>';
           }).join('') +
@@ -299,15 +345,17 @@
   }
 
   function finishHTML(t) {
-    var isLast = t === 'networking';
+    var nt = nextTrack(t);
     return '<section class="read sec"><div class="finish card">' +
       '<span class="finish-ic">' + ic('flag') + '</span>' +
       '<h2>End of ' + T[t].part + '</h2>' +
       '<p>' + T[t].finish + '</p>' +
-      (isLast
-        ? '<a class="btn btn-primary" href="#/next">What to learn next ' + ic('arrowRight') + '</a>'
-        : '<a class="btn btn-primary" href="#/part/networking">Start Part 2: Out into the world ' + ic('arrowRight') + '</a>') +
-      '</div></section>';
+      '<div class="actions center">' +
+      (nt
+        ? '<a class="btn btn-primary" href="#/part/' + nt + '">Start ' + T[nt].part + ': ' + T[nt].title + ' ' + ic('arrowRight') + '</a>'
+        : '<a class="btn btn-primary" href="#/test">Take the final test ' + ic('arrowRight') + '</a><a class="btn btn-secondary" href="#/next">What to learn next</a>') +
+      '<a class="btn btn-secondary" href="#/test?part=' + t + '">Test yourself on ' + T[t].part + '</a>' +
+      '</div></div></section>';
   }
 
   /* ---------- Word list ---------- */
@@ -315,27 +363,27 @@
     var seen = {}, out = [];
     C.forEach(function (c) {
       c.words.forEach(function (w) {
-        var k = w[0].toLowerCase();
+        var k = strip(w[0]).toLowerCase();
         if (seen[k]) return;
         seen[k] = true;
         out.push({ term: w[0], mean: w[1], ch: c });
       });
     });
-    return out.sort(function (a, b) { return a.term.localeCompare(b.term, 'en', { sensitivity: 'base' }); });
+    return out.sort(function (a, b) { return strip(a.term).localeCompare(strip(b.term), 'en', { sensitivity: 'base' }); });
   }
 
   function viewWords() {
-    var words = allWords();
+    var list = allWords();
     return '' +
       '<section class="read page-head">' +
         '<p class="eyebrow">Word list</p>' +
         '<h1>Every word, explained simply</h1>' +
-        '<p class="lead">' + words.length + ' words from the story. Type to search, or tap a chapter to read where the word comes from.</p>' +
-        '<label class="search">' + ic('search') + '<input type="search" id="wordSearch" placeholder="Search, e.g. RAM or router" autocomplete="off" aria-label="Search the word list"></label>' +
+        '<p class="lead">' + list.length + ' words from the story. Type to search, or tap a chapter to read where the word comes from.</p>' +
+        '<label class="search">' + ic('search') + '<input type="search" id="wordSearch" placeholder="Search, e.g. RAM, subnet or ransomware" autocomplete="off" aria-label="Search the word list"></label>' +
       '</section>' +
       '<section class="read">' +
-        '<dl class="words glossary" id="wordList">' + words.map(function (w) {
-          return '<div data-k="' + esc((w.term + ' ' + w.mean).toLowerCase()) + '"><dt>' + w.term + '</dt><dd>' + w.mean +
+        '<dl class="words glossary" id="wordList">' + list.map(function (w) {
+          return '<div data-k="' + esc(strip(w.term + ' ' + w.mean).toLowerCase()) + '"><dt>' + w.term + '</dt><dd>' + w.mean +
             ' <a href="#/chapter/' + w.ch.id + '">' + T[w.ch.track].label + ': ' + w.ch.title + '</a></dd></div>';
         }).join('') + '</dl>' +
         '<p class="empty" id="noWords" hidden></p>' +
@@ -363,7 +411,7 @@
         }).join('') + '</div>' +
       '</section>' +
       '<section class="read sec">' +
-        '<h2 class="sec-title">' + ic('flag') + 'Certificates people start with</h2>' +
+        '<h2 class="sec-title">' + ic('award') + 'Certificates people start with</h2>' +
         '<div class="list-cards">' + w.certificates.map(function (x) { return '<div class="card"><strong>' + x[0] + '</strong><p>' + x[1] + '</p></div>'; }).join('') + '</div>' +
       '</section>' +
       '<section class="read sec">' +
@@ -372,8 +420,149 @@
       '</section>' +
       '<section class="read sec"><div class="actions">' +
         '<a class="btn btn-secondary" href="#/">' + ic('arrowLeft') + ' Back to the start</a>' +
-        '<a class="btn btn-secondary" href="#/words">Review the word list</a>' +
+        '<a class="btn btn-secondary" href="#/test">Take the final test</a>' +
       '</div></section>';
+  }
+
+  /* ---------- Final test and certificate ---------- */
+  var PASS = 70;
+  function viewTest() {
+    return '' +
+      '<section class="read page-head">' +
+        '<p class="eyebrow">Final test</p>' +
+        '<h1>Test yourself</h1>' +
+        '<p class="lead">Questions are picked at random from the chapters, so every test is different. Score ' + PASS + '% or more to get your certificate.</p>' +
+      '</section>' +
+      '<section class="read" id="testArea"></section>';
+  }
+
+  function wireTest(query) {
+    var area = document.getElementById('testArea');
+    var preset = (query.match(/part=([a-z]+)/) || [])[1];
+
+    function bestText(key) {
+      var b = state.tests[key];
+      return b ? 'Best: ' + b.pct + '%' + (b.pct >= PASS ? ' · Passed' : '') : 'Not taken yet';
+    }
+
+    function setup() {
+      var opts = [{ key: 'all', title: 'The whole course', sub: '30 questions from all ' + words(TRACK_IDS.length) + ' parts', icon: 'award', n: 30 }]
+        .concat(TRACK_IDS.map(function (t) {
+          return { key: t, title: T[t].part + ': ' + T[t].title, sub: '15 questions · ' + T[t].label, icon: T[t].icon, n: 15 };
+        }));
+      area.innerHTML = '<div class="test-pick">' + opts.map(function (o) {
+        return '<button type="button" class="card row-link test-opt' + (o.key !== 'all' ? ' t-' + o.key : '') + (o.key === preset ? ' preset' : '') + '" data-k="' + o.key + '" data-n="' + o.n + '">' +
+          '<span class="row-ic">' + ic(o.icon) + '</span><span><strong>' + o.title + '</strong><span>' + o.sub + ' · ' + bestText(o.key) + '</span></span>' + ic('chevronRight') + '</button>';
+      }).join('') + '</div>';
+      area.querySelector('.test-pick').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-k]'); if (!b) return;
+        start(b.dataset.k, +b.dataset.n);
+      });
+      var pre = area.querySelector('.preset');
+      if (pre) pre.focus({ preventScroll: true });
+    }
+
+    function start(key, n) {
+      var pool = [];
+      C.forEach(function (c) {
+        if (key !== 'all' && c.track !== key) return;
+        c.quiz.forEach(function (q) { pool.push({ q: q, ch: c }); });
+      });
+      var items = shuffle(pool).slice(0, Math.min(n, pool.length)).map(function (it) {
+        return { q: it.q, ch: it.ch, order: shuffle(it.q.a.map(function (_, i) { return i; })), pick: null };
+      });
+      var scope = key === 'all' ? 'the whole course' : T[key].part + ': ' + T[key].title;
+      area.innerHTML =
+        '<p class="sec-sub">Testing: <b>' + scope + '</b>. ' + items.length + ' questions. Pick one answer for each, then press <b>Finish</b> at the bottom.</p>' +
+        '<ol class="qs test-qs">' + items.map(function (it, i) {
+          return '<li class="q card" data-i="' + i + '"><p class="t-q"><span class="q-num">' + (i + 1) + '</span><span>' + it.q.q + '</span></p>' +
+            optionButtons(it.q, it.order) + '<p class="why" hidden></p></li>';
+        }).join('') + '</ol>' +
+        '<div class="test-bar card"><span class="test-count">0 of ' + items.length + ' answered</span>' +
+          '<button type="button" class="btn btn-primary test-finish" disabled>Finish</button></div>' +
+        '<div class="test-result" aria-live="polite"></div>';
+      window.scrollTo(0, area.getBoundingClientRect().top + window.scrollY - 90);
+
+      var finished = false;
+      area.querySelector('.test-qs').addEventListener('click', function (e) {
+        var b = e.target.closest('.opt'); if (!b || finished) return;
+        var li = b.closest('.q'), it = items[+li.dataset.i];
+        it.pick = +b.dataset.o;
+        li.querySelectorAll('.opt').forEach(function (x) { x.classList.toggle('chosen', x === b); x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        var n2 = items.filter(function (x) { return x.pick !== null; }).length;
+        area.querySelector('.test-count').textContent = n2 + ' of ' + items.length + ' answered';
+        area.querySelector('.test-finish').disabled = n2 < items.length;
+      });
+      area.querySelector('.test-finish').addEventListener('click', function () {
+        finished = true;
+        var right = 0, missed = {};
+        area.querySelectorAll('.test-qs .q').forEach(function (li, i) {
+          var it = items[i], ok = it.pick === it.q.c;
+          if (ok) right++; else missed[it.ch.id] = it.ch;
+          li.classList.add('answered');
+          li.querySelectorAll('.opt').forEach(function (x) {
+            var o = +x.dataset.o; x.disabled = true; x.classList.remove('chosen');
+            if (o === it.q.c) x.classList.add('right');
+            if (o === it.pick && !ok) x.classList.add('wrong');
+          });
+          var why = li.querySelector('.why');
+          why.innerHTML = (ok ? '<b>Correct.</b> ' : '<b>Not quite.</b> ') + it.q.why + ' <a href="#/chapter/' + it.ch.id + '">Read: ' + it.ch.title + '</a>';
+          why.className = 'why ' + (ok ? 'ok' : 'bad'); why.hidden = false;
+        });
+        var pct = Math.round(right / items.length * 100);
+        var prevBest = state.tests[key];
+        if (!prevBest || pct > prevBest.pct) state.tests[key] = { pct: pct, date: new Date().toISOString().slice(0, 10) };
+        save();
+        area.querySelector('.test-bar').hidden = true;
+        var res = area.querySelector('.test-result');
+        var missedList = Object.keys(missed).map(function (id) { return missed[id]; });
+        res.innerHTML = '<div class="card quiz-result">' +
+          '<p class="score"><strong>' + pct + '%</strong> ' + right + ' of ' + items.length + ' correct. ' +
+          (pct >= PASS ? 'You passed! Your certificate is below.' : 'You need ' + PASS + '% to pass. Read the chapters below again, then try a new test.') + '</p>' +
+          (missedList.length ? '<p class="muted small">Chapters to review:</p><div class="tags">' + missedList.map(function (c) { return '<a class="tag" href="#/chapter/' + c.id + '">' + c.title + '</a>'; }).join('') + '</div>' : '') +
+          '<div class="actions"><button type="button" class="btn btn-secondary test-again">' + ic('reset') + ' New test</button></div></div>' +
+          (pct >= PASS ? certificateHTML(scope, pct) : '');
+        res.querySelector('.test-again').addEventListener('click', function () { setup(); window.scrollTo(0, 0); });
+        if (pct >= PASS) wireCertificate(res);
+        res.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+      });
+    }
+
+    setup();
+  }
+
+  function certificateHTML(scope, pct) {
+    var date = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    var what = scope === 'the whole course'
+      ? 'the complete course in computer hardware, computer engineering, IT support, networking and cybersecurity'
+      : scope;
+    return '<div class="cert-wrap">' +
+      '<h2 class="sec-title">' + ic('award') + 'Your certificate</h2>' +
+      '<label class="field"><span class="k">Your name, as it should appear</span><input type="text" id="certName" maxlength="60" autocomplete="name" value="' + esc(state.name || '') + '" placeholder="Type your name"></label>' +
+      '<div class="cert" id="cert">' +
+        '<img src="assets/icon.svg" alt="" width="52" height="52">' +
+        '<p class="cert-kicker">Certificate of completion</p>' +
+        '<p class="cert-small">This is to certify that</p>' +
+        '<p class="cert-name" id="certNameOut">' + esc(state.name || 'Your name') + '</p>' +
+        '<p class="cert-body">has completed <b>Byte by Byte</b>, ' + what + ', and passed the final test with a score of <b>' + pct + '%</b>.</p>' +
+        '<p class="cert-date">' + date + '</p>' +
+      '</div>' +
+      '<div class="actions"><button type="button" class="btn btn-primary" id="certPrint">' + ic('printer') + ' Print or save as PDF</button></div>' +
+      '<p class="muted small">Your name stays on this device. Nothing is sent anywhere.</p>' +
+    '</div>';
+  }
+  function wireCertificate(root) {
+    var input = root.querySelector('#certName'), out = root.querySelector('#certNameOut');
+    input.addEventListener('input', function () {
+      out.textContent = input.value.trim() || 'Your name';
+      state.name = input.value.trim(); save();
+    });
+    root.querySelector('#certPrint').addEventListener('click', function () {
+      if (!input.value.trim()) { input.focus(); input.placeholder = 'Type your name first'; return; }
+      document.body.classList.add('printing-cert');
+      window.print();
+      setTimeout(function () { document.body.classList.remove('printing-cert'); }, 500);
+    });
   }
 
   /* ---------- Wiring up a chapter after it is on the page ---------- */
@@ -382,7 +571,6 @@
     state.last = c.id;
     save();
 
-    // Toys
     main.querySelectorAll('[data-toy]').forEach(function (el) {
       var name = el.getAttribute('data-toy');
       try {
@@ -394,13 +582,11 @@
       }
     });
 
-    // Quiz
     var quiz = main.querySelector('#quiz');
     if (quiz) wireQuiz(c, quiz);
 
-    // Read aloud
     var lb = main.querySelector('#listenBtn');
-    if (lb) lb.addEventListener('click', function () { toggleSpeech(c, lb); });
+    if (lb) lb.addEventListener('click', function () { toggleSpeech(c); });
   }
 
   function wireQuiz(c, quiz) {
@@ -472,7 +658,7 @@
     try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; }
   }
 
-  /* ---------- Read aloud (built into the browser, free, works offline on most devices) ---------- */
+  /* ---------- Read aloud (built into the browser, free) ---------- */
   var speaking = false;
   function pickVoice() {
     try {
@@ -510,7 +696,7 @@
     if (speaking) { stopSpeech(); return; }
     var synth = window.speechSynthesis;
     if (!synth) return;
-    var items = [{ text: c.title + '. ' + c.topic + '.' }];
+    var items = [{ text: strip(c.title) + '. ' + strip(c.topic) + '.' }];
     main.querySelectorAll('.story .line').forEach(function (el) {
       var who = el.classList.contains('narr') ? '' : el.querySelector('.who').textContent + ': ';
       var p = el.classList.contains('narr') ? el : el.querySelector('.bubble p');
@@ -555,17 +741,21 @@
     var hash = location.hash || '#/';
     if (hash.indexOf('#/') !== 0) return; // e.g. the "skip to content" link: not a page change
     stopSpeech();
-    var parts = hash.slice(2).split('/').filter(Boolean);
+    var path = hash.slice(2), query = '';
+    if (path.indexOf('?') !== -1) { query = path.slice(path.indexOf('?') + 1); path = path.slice(0, path.indexOf('?')); }
+    var parts = path.split('/').filter(Boolean);
     var html = null, title = 'Byte by Byte', nav = 'home', after = null;
 
     if (!parts.length) { html = viewHome(); }
-    else if (parts[0] === 'part') { html = viewPart(parts[1]); nav = parts[1]; if (T[parts[1]]) title = T[parts[1]].title + ' · Byte by Byte'; }
+    else if (parts[0] === 'chapters') { html = viewChapters(); nav = 'chapters'; title = 'All chapters · Byte by Byte'; }
+    else if (parts[0] === 'part') { html = viewPart(parts[1]); nav = 'chapters'; if (T[parts[1]]) title = T[parts[1]].title + ' · Byte by Byte'; }
     else if (parts[0] === 'chapter' && byId[parts[1]]) {
       var c = byId[parts[1]];
-      html = viewChapter(c.id); nav = c.track; title = c.title + ' · Byte by Byte';
+      html = viewChapter(c.id); nav = 'chapters'; title = strip(c.title) + ' · Byte by Byte';
       after = function () { wireChapter(c); };
     }
     else if (parts[0] === 'words') { html = viewWords(); nav = 'words'; title = 'Word list · Byte by Byte'; after = wireWords; }
+    else if (parts[0] === 'test') { html = viewTest(); nav = 'test'; title = 'Final test · Byte by Byte'; after = function () { wireTest(query); }; }
     else if (parts[0] === 'next') { html = viewNext(); nav = ''; title = 'Where to go next · Byte by Byte'; }
 
     if (html == null) { location.replace('#/'); return; }
@@ -635,7 +825,6 @@
     main.focus();
   });
 
-  // Some browsers load their voices late; asking once early makes "Listen" start faster.
   try { if (window.speechSynthesis) window.speechSynthesis.getVoices(); } catch (e) {}
 
   paintThemeBtn();
